@@ -86,15 +86,17 @@ def hgss():
     map_names = []
     for row in data_hg:
         if f"ENCDATA_{row[0]}" in map_headers.keys():
-            location = maps[map_headers[f"ENCDATA_{row[0]}"]]
+            location_name = map_headers[f"ENCDATA_{row[0]}"]
+            location = maps[location_name]
+            location_name = clean_string(location_name)
             hg += location.to_bytes(2, "big")
 
-            map_name = (location, clean_string(map_headers[f"ENCDATA_{row[0]}"]))
+            map_name = (location, location_name)
             if map_name not in map_names:
                 map_names.append(map_name)
             else:
-                count = map_names.count(map_name)
-                map_names.append((map_name[0] | (count << 8), map_name[1]))
+                count = sum([1 for _, name in map_names if name == location_name])
+                map_names.append((location | (count << 8), location_name))
 
             for i in range(1, len(row)):
                 item = row[i]
