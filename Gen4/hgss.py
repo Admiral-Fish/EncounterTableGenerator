@@ -34,11 +34,11 @@ def encounters():
                 map_names.append((location_number, location_name))
 
             # HG
-            hg += location_number.to_bytes(2, "big")
+            hg += location_number.to_bytes(2, "little")
             hg += HG_ENCOUNTERS[encounter_id]
 
             # SS
-            ss += location_number.to_bytes(2, "big")
+            ss += location_number.to_bytes(2, "little")
             ss = SS_ENCOUNTERS[encounter_id]
 
     with open("hg.bin", "wb+") as f:
@@ -66,7 +66,7 @@ def bug():
     bug = bytearray()
     LOCATION_START = 235
     for i in range(4):
-        bug += (LOCATION_START + i).to_bytes(1, "big")
+        bug += (LOCATION_START + i).to_bytes(1, "little")
         for j in range(10):
             offset = (i * 10) + (j * 8)
 
@@ -74,9 +74,9 @@ def bug():
             min_level = data[offset + 2]
             max_level = data[offset + 3]
 
-            bug += min_level.to_bytes(1, "big")
-            bug += max_level.to_bytes(1, "big")
-            bug += species.to_bytes(2, "big")
+            bug += min_level.to_bytes(1, "little")
+            bug += max_level.to_bytes(1, "little")
+            bug += species.to_bytes(2, "little")
 
     with open("heartgold_bug.bin", "wb") as f:
         f.write(bug)

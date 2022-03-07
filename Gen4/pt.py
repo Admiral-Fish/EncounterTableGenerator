@@ -33,7 +33,7 @@ def encounters():
                 map_names.append((location_number, location_name))
 
             # Platinum
-            pt += location_number.to_bytes(2, "big")
+            pt += location_number.to_bytes(2, "little")
             pt += Pt_ENCOUNTERS[encounter_id]
 
     with open("platinum.bin", "wb+") as f:

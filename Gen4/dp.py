@@ -35,11 +35,11 @@ def encounters():
                 map_names.append((location_number, location_name))
 
             # Diamond
-            d += location_number.to_bytes(2, "big")
+            d += location_number.to_bytes(2, "little")
             d += D_ENCOUNTERS[encounter_id]
 
             # Pearl
-            p += location_number.to_bytes(2, "big")
+            p += location_number.to_bytes(2, "little")
             p = P_ENCOUNTERS[encounter_id]
 
     with open("diamond.bin", "wb+") as f:

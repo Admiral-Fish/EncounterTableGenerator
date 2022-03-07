@@ -33,29 +33,30 @@ def encounters():
         encounter_data = bytearray()
 
         map_number = maps[encounter["map"]]
-        encounter_data += map_number.to_bytes(2, "big")
+        
+        encounter_data += map_number.to_bytes(2, "little")
 
         map_name = (map_number, clean_string(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
 
         if (land := "land_mons" in encounter):
-            encounter_data += encounter["land_mons"]["encounter_rate"].to_bytes(1, "big")
+            encounter_data += encounter["land_mons"]["encounter_rate"].to_bytes(1, "little")
         else:
             encounter_data += b"\x00"
 
         if (water := "water_mons" in encounter):
-            encounter_data += encounter["water_mons"]["encounter_rate"].to_bytes(1, "big")
+            encounter_data += encounter["water_mons"]["encounter_rate"].to_bytes(1, "little")
         else:
             encounter_data += b"\x00"
 
         if (rock := "rock_smash_mons" in encounter):
-            encounter_data += encounter["rock_smash_mons"]["encounter_rate"].to_bytes(1, "big")
+            encounter_data += encounter["rock_smash_mons"]["encounter_rate"].to_bytes(1, "little")
         else:
             encounter_data += b"\x00"
 
         if (fish := "fishing_mons" in encounter):
-            encounter_data += encounter["fishing_mons"]["encounter_rate"].to_bytes(1, "big")
+            encounter_data += encounter["fishing_mons"]["encounter_rate"].to_bytes(1, "little")
         else:
             encounter_data += b"\x00"
 
@@ -64,7 +65,7 @@ def encounters():
                 level = slot["min_level"]
                 species = pokemon[slot["species"]]
 
-                encounter_data += level.to_bytes(1, "big")
+                encounter_data += level.to_bytes(1, "little")
                 encounter_data += species.to_bytes(2, "little")
         else:
             encounter_data += b"\x00" * (12 * 3)
@@ -75,8 +76,8 @@ def encounters():
                 max_level = slot["max_level"]
                 species = pokemon[slot["species"]]
 
-                encounter_data += min_level.to_bytes(1, "big")
-                encounter_data += max_level.to_bytes(1, "big")
+                encounter_data += min_level.to_bytes(1, "little")
+                encounter_data += max_level.to_bytes(1, "little")
                 encounter_data += species.to_bytes(2, "little")
         else:
             encounter_data += b"\x00" * (5 * 4)
@@ -87,8 +88,8 @@ def encounters():
                 max_level = slot["max_level"]
                 species = pokemon[slot["species"]]
 
-                encounter_data += min_level.to_bytes(1, "big")
-                encounter_data += max_level.to_bytes(1, "big")
+                encounter_data += min_level.to_bytes(1, "little")
+                encounter_data += max_level.to_bytes(1, "little")
                 encounter_data += species.to_bytes(2, "little")
         else:
             encounter_data += b"\x00" * (5 * 4)
@@ -99,8 +100,8 @@ def encounters():
                 max_level = slot["max_level"]
                 species = pokemon[slot["species"]]
 
-                encounter_data += min_level.to_bytes(1, "big")
-                encounter_data += max_level.to_bytes(1, "big")
+                encounter_data += min_level.to_bytes(1, "little")
+                encounter_data += max_level.to_bytes(1, "little")
                 encounter_data += species.to_bytes(2, "little")
         else:
             encounter_data += b"\x00" * (10 * 4)
