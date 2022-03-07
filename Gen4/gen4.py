@@ -1,4 +1,4 @@
-import hgss
+from . import hgss
 
 def create_encounters():
     hgss.encounters()
