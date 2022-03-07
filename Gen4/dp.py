@@ -48,7 +48,7 @@ def encounters():
     with open("pearl.bin", "wb+") as f:
         f.write(p)
 
-    with open("dp_en.txt", "w+") as f:
+    with open("dp_en.txt", "w+", encoding="utf-8") as f:
         map_names.sort(key=lambda x: x[0])
         for num, name in map_names:
             f.write(f"{num},{name}\n")
