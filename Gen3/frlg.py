@@ -80,7 +80,7 @@ def encounters():
                 encounter_data += max_level.to_bytes(1, "big")
                 encounter_data += species.to_bytes(2, "little")
         else:
-            encounter_data += "\x00" * (5 * 4)
+            encounter_data += b"\x00" * (5 * 4)
 
         if rock:
             for slot in encounter["rock_smash_mons"]["mons"]:
@@ -92,7 +92,7 @@ def encounters():
                 encounter_data += max_level.to_bytes(1, "big")
                 encounter_data += species.to_bytes(2, "little")
         else:
-            encounter_data += "\x00" * (5 * 4)
+            encounter_data += b"\x00" * (5 * 4)
 
         if fish:
             for slot in encounter["fishing_mons"]["mons"]:
@@ -104,7 +104,7 @@ def encounters():
                 encounter_data += max_level.to_bytes(1, "big")
                 encounter_data += species.to_bytes(2, "little")
         else:
-            encounter_data += "\x00" * (10 * 4)
+            encounter_data += b"\x00" * (10 * 4)
 
         if "FireRed" in encounter["base_label"]:
             fr += encounter_data
