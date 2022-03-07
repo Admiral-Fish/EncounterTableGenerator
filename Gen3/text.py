@@ -7,6 +7,8 @@ def clean_string(map_string: str):
     for i, string in enumerate(strings):
         if (match := re.match(r"Route(\d+)", string, re.IGNORECASE)):
             strings[i] = f"Route {match.group(1)}"
+        elif (match := re.match(r"Room(\d+)", string, re.IGNORECASE)):
+            strings[i] = f"Room {match.group(1)}"
         elif re.match(r"B(\d+)F", string):
             strings[i] = string
         elif re.match(r"(\d+)F", string):
