@@ -37,6 +37,9 @@ def encounters():
         encounter_data += map_number.to_bytes(2, "little")
 
         map_name = (map_number, clean_string(encounter["map"]))
+        if "Unused" in map_name[1]:
+            continue
+
         if map_name not in map_names:
             map_names.append(map_name)
 
