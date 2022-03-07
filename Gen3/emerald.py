@@ -65,7 +65,9 @@ def encounters():
                 species = pokemon[slot["species"]]
 
                 encounter_data += level.to_bytes(1, "big")
-                encounter_data += species.to_bytes(2, "big")
+                encounter_data += species.to_bytes(2, "little")
+        else:
+            encounter_data += b"\x00" * (12 * 3)
 
         if water:
             for slot in encounter["water_mons"]["mons"]:
@@ -75,7 +77,9 @@ def encounters():
 
                 encounter_data += min_level.to_bytes(1, "big")
                 encounter_data += max_level.to_bytes(1, "big")
-                encounter_data += species.to_bytes(2, "big")
+                encounter_data += species.to_bytes(2, "little")
+        else:
+            encounter += b"\x00" * (5 * 4)
 
         if rock:
             for slot in encounter["rock_smash_mons"]["mons"]:
@@ -85,7 +89,9 @@ def encounters():
 
                 encounter_data += min_level.to_bytes(1, "big")
                 encounter_data += max_level.to_bytes(1, "big")
-                encounter_data += species.to_bytes(2, "big")
+                encounter_data += species.to_bytes(2, "little")
+        else:
+            encounter_data += b"\x00" * (5 * 4)
 
         if fish:
             for slot in encounter["fishing_mons"]["mons"]:
@@ -95,7 +101,9 @@ def encounters():
 
                 encounter_data += min_level.to_bytes(1, "big")
                 encounter_data += max_level.to_bytes(1, "big")
-                encounter_data += species.to_bytes(2, "big")
+                encounter_data += species.to_bytes(2, "little")
+        else:
+            encounter_data += b"\x00" * (10 * 4)
 
         emerald += encounter_data
 
