@@ -118,6 +118,6 @@ def encounters():
         f.write(sapphire)
 
     with open("rs_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: x[0])
+        map_names.sort(key=lambda x: (x[1], x[0]))
         for num, name in map_names:
             f.write(f"{num},{name}\n")
