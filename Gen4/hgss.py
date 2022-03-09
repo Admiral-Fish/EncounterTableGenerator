@@ -1,5 +1,6 @@
 import os
 
+from .compress import compress_encounter_hgss
 from .narc import Narc
 from .text import read_map_names
 
@@ -35,11 +36,11 @@ def encounters():
 
             # HG
             hg += location_number.to_bytes(2, "little")
-            hg += HG_ENCOUNTERS[encounter_id]
+            hg += compress_encounter_hgss(HG_ENCOUNTERS[encounter_id])
 
             # SS
             ss += location_number.to_bytes(2, "little")
-            ss = SS_ENCOUNTERS[encounter_id]
+            ss += compress_encounter_hgss(SS_ENCOUNTERS[encounter_id])
 
     with open("hg.bin", "wb+") as f:
         f.write(hg)

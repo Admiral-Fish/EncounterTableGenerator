@@ -1,12 +1,13 @@
 import os
 
+from .compress import compress_encounter_dppt
 from .narc import Narc
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 def encounters():
-    Pt_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/pt/pl_enc_data.narc").get_elements()
+    PT_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/pt/pl_enc_data.narc").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/pt/mapheaders.bin"
 
     with open(MAP_HEADERS, "rb") as f:
@@ -23,7 +24,7 @@ def encounters():
 
             # Platinum
             pt += location_number.to_bytes(2, "little")
-            pt += Pt_ENCOUNTERS[encounter_id]
+            pt += compress_encounter_dppt(PT_ENCOUNTERS[encounter_id])
 
     with open("platinum.bin", "wb+") as f:
         f.write(pt)

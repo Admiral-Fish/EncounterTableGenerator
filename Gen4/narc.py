@@ -34,5 +34,5 @@ class Narc:
             file.seek(self.fimg_offset + start_offsets[i] + 8)
             self.elements.append(file.read(end_offsets[i] - start_offsets[i]))
 
-    def get_elements(self) -> list:
+    def get_elements(self) -> list[bytes]:
         return self.elements

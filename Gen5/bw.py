@@ -40,7 +40,7 @@ def encounters():
 
             # White
             w += location_number.to_bytes(2, "little")
-            w = W_ENCOUNTERS[encounter_id]
+            w += W_ENCOUNTERS[encounter_id]
 
     with open("black.bin", "wb+") as f:
         f.write(b)

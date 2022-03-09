@@ -1,5 +1,6 @@
 import os
 
+from .compress import compress_encounter_dppt
 from .narc import Narc
 from .text import read_map_names
 
@@ -36,11 +37,11 @@ def encounters():
 
             # Diamond
             d += location_number.to_bytes(2, "little")
-            d += D_ENCOUNTERS[encounter_id]
+            d += compress_encounter_dppt(D_ENCOUNTERS[encounter_id])
 
             # Pearl
             p += location_number.to_bytes(2, "little")
-            p = P_ENCOUNTERS[encounter_id]
+            p += compress_encounter_dppt(P_ENCOUNTERS[encounter_id])
 
     with open("diamond.bin", "wb+") as f:
         f.write(d)
