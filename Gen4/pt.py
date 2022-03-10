@@ -16,14 +16,24 @@ def encounters():
             map_headers.append(f.read(24))
 
     pt = bytes()
-    map_names = []
     for map_header in map_headers:
         encounter_id = map_header[14] | (map_header[15] << 8)
-        if encounter_id != 65535:
-            location_number = map_header[18]
 
+        # Mt Coronet Summit covers two maps, with the same tables
+        if encounter_id == 14:
+            continue
+
+        # Old Chateau has only two tables that differ, skip the others
+        if encounter_id in (126, 127, 128, 129, 130, 131, 133):
+            continue
+
+        # Turnback Cave has duplicate entries based on pillars encountered
+        if encounter_id in (64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 79, 80):
+            continue
+
+        if encounter_id != 65535:
             # Platinum
-            pt += location_number.to_bytes(2, "little")
+            pt += encounter_id.to_bytes(2, "little")
             pt += compress_encounter_dppt(PT_ENCOUNTERS[encounter_id])
 
     with open("platinum.bin", "wb+") as f:

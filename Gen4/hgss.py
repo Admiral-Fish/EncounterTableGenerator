@@ -1,4 +1,5 @@
 import os
+import json
 
 from .compress import compress_encounter_hgss
 from .narc import Narc
@@ -12,34 +13,45 @@ def encounters():
     SS_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/hgss/ss_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/hgss/mapheaders.bin"
     MAP_NAMES = read_map_names(f"{SCRIPT_FOLDER}/hgss/mapnames.bin")
+    LOCATION_MODIFIERS = f"{SCRIPT_FOLDER}/location_modifier.json"
 
     with open(MAP_HEADERS, "rb") as f:
         map_headers = []
         for _ in range(540):
             map_headers.append(f.read(24))
 
+    with open(LOCATION_MODIFIERS, "rb") as f:
+        location_modifiers = json.load(f)["hgss"]
+
     hg = bytes()
     ss = bytes()
     map_names = []
     for map_header in map_headers:
+        encounter_id = map_header[0]
+
+        # Sprout Tower has the same tables for the entire location
+        if encounter_id == 7:
+            continue
+
+        # Mt. Moon has two seperate location inside the cave with the same tables
+        if encounter_id == 107:
+            continue
+
         if (encounter_id := map_header[0]) != 255:
             location_number = map_header[18]
             location_name = MAP_NAMES[location_number]
+            if location_name in location_modifiers and str(encounter_id) in location_modifiers[location_name]:
+                location_name = location_modifiers[location_name][str(encounter_id)]
 
-            map_name = (location_number, location_name)
-            if map_name not in map_names:
-                map_names.append(map_name)
-            else:
-                count = sum([1 for _, name in map_names if name == location_name])
-                location_number |= (count << 8)
-                map_names.append((location_number, location_name))
+            map_name = (encounter_id, location_name)
+            map_names.append(map_name)
 
             # HG
-            hg += location_number.to_bytes(2, "little")
+            hg += encounter_id.to_bytes(2, "little")
             hg += compress_encounter_hgss(HG_ENCOUNTERS[encounter_id])
 
             # SS
-            ss += location_number.to_bytes(2, "little")
+            ss += encounter_id.to_bytes(2, "little")
             ss += compress_encounter_hgss(SS_ENCOUNTERS[encounter_id])
 
     with open("hg.bin", "wb+") as f:
