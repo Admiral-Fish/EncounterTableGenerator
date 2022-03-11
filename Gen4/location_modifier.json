@@ -111,17 +111,6 @@
         }
     },
     "hgss": {
-        "Bell Tower": {
-            "30": "Bell Tower 2F",
-            "31": "Bell Tower 3F",
-            "32": "Bell Tower 4F",
-            "33": "Bell Tower 5F",
-            "34": "Bell Tower 6F",
-            "35": "Bell Tower 7F",
-            "36": "Bell Tower 8F",
-            "37": "Bell Tower 9F",
-            "84": "Bell Tower 10F"
-        },
         "Burned Tower": {
             "28": "Burned Tower 1F",
             "29": "Burned Tower B1F"
@@ -129,7 +118,7 @@
         "Cerulean Cave": {
             "139": "Cerulean Cave 1F",
             "140": "Cerulean Cave 2F",
-            "141": "Cerulean Cave"
+            "141": "Cerulean Cave B1F"
         },
         "Dark Cave": {
             "69": "Dark Cave (Route 31)",
@@ -161,7 +150,6 @@
             "88": "Mt. Silver Cave (Export Belt)",
             "89": "Mt. Silver Cave (Upper mountainside)"
         },
-        "National Park": {},
         "Rock Tunnel": {
             "108": "Rock Tunnel 1F",
             "109": "Rock Tunnel B1F"

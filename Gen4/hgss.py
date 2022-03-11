@@ -33,6 +33,12 @@ def encounters():
         if encounter_id == 7:
             continue
 
+        # Future note: 23/24 National Park tables depend on national dex or not
+
+        # Bell Tower has the same tables for the entire location
+        if encounter_id in (31, 32, 33, 34, 35, 36, 37, 84):
+            continue
+
         # Mt. Moon has two seperate location inside the cave with the same tables
         if encounter_id == 107:
             continue
