@@ -114,7 +114,7 @@ def encounters():
     with open("emerald.bin", "wb+") as f:
         f.write(emerald)
 
-    with open("emerald_en.txt", "w+") as f:
+    with open("e_en.txt", "w+") as f:
         map_names.sort(key=lambda x: (x[1], x[0]))
         for num, name in map_names:
             f.write(f"{num},{name}\n")
