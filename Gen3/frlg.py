@@ -30,15 +30,13 @@ def encounters():
     fr = bytearray()
     lg = bytearray()
     map_names = []
-    for encounter in encounters:
+    for map_number, encounter in enumerate(encounters):
         # Altering Cave has 8 unused tables
         if re.search(r"AlteringCave_[2-9]", encounter["base_label"]):
             continue
 
         encounter_data = bytearray()
-
-        map_number = maps[encounter["map"]]
-        encounter_data += map_number.to_bytes(2, "little")
+        encounter_data += map_number.to_bytes(1, "little")
 
         map_name = (map_number, clean_string(encounter["map"]))
         if map_name not in map_names:
