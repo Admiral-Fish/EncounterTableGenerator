@@ -30,6 +30,14 @@ def encounters():
     emerald = bytearray()
     map_names = []
     for encounter in encounters:
+        # Altering cave has 8 unused tables
+        if re.match(r"gAlteringCave[2-9]", encounter["base_label"]):
+            continue
+
+        # Cave of Origin has 3 unused tables
+        if "Unused" in encounter["base_label"]:
+            continue
+
         encounter_data = bytearray()
 
         map_number = maps[encounter["map"]]
@@ -37,9 +45,6 @@ def encounters():
         encounter_data += map_number.to_bytes(2, "little")
 
         map_name = (map_number, clean_string(encounter["map"]))
-        if "Unused" in map_name[1]:
-            continue
-
         if map_name not in map_names:
             map_names.append(map_name)
 

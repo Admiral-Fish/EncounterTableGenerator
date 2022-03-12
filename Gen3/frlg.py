@@ -31,6 +31,10 @@ def encounters():
     lg = bytearray()
     map_names = []
     for encounter in encounters:
+        # Altering Cave has 8 unused tables
+        if re.search(r"AlteringCave_[2-9]", encounter["base_label"]):
+            continue
+
         encounter_data = bytearray()
 
         map_number = maps[encounter["map"]]
