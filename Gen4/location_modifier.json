@@ -87,7 +87,6 @@
             "110": "Snowpoint Temple B4F",
             "111": "Snowpoint Temple B5F"
         },
-        "Solaceon Ruins": {},
         "Stark Mountain": {
             "57": "Stark Mountain Interior 1",
             "58": "Stark Mountain Interior 2"
@@ -158,7 +157,10 @@
             "112": "Route 2 (South)",
             "136": "Route 2 (North)"
         },
-        "Ruins of Alph": {},
+        "Ruins of Alph": {
+            "9": "Ruins of Alph (Outside)",
+            "10": "Ruins of Alph (Inside)"
+        },
         "SLOWPOKE Well": {
             "18": "SLOWPOKE Well B1F",
             "19": "SLOWPOKE Well B2F"

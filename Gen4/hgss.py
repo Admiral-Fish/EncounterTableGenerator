@@ -43,6 +43,10 @@ def encounters():
         if encounter_id == 107:
             continue
 
+        # Ruins of Alpha interior all share the same table
+        if encounter_id in (11, 12, 13):
+            continue
+
         if (encounter_id := map_header[0]) != 255:
             location_number = map_header[18]
             location_name = MAP_NAMES[location_number]

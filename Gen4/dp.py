@@ -1,5 +1,5 @@
-import os
 import json
+import os
 
 from .compress import compress_encounter_dppt
 from .narc import Narc
@@ -39,6 +39,10 @@ def encounters():
 
         # Turnback Cave has duplicate entries based on pillars encountered
         if encounter_id in (64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 79, 80):
+            continue
+
+        # Solaceon Ruins all share the same table
+        if encounter_id in (30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46):
             continue
 
         if encounter_id != 65535:
