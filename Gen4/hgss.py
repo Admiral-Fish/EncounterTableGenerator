@@ -66,10 +66,10 @@ def encounters():
     with open("ss.bin", "wb+") as f:
         f.write(ss)
 
-    map_names.append((235, "Bug Contest"))
-    map_names.append((236, "Bug Contest (Tuesday)"))
-    map_names.append((237, "Bug Contest (Thursday)"))
-    map_names.append((238, "Bug Contest (Saturday)"))
+    map_names.append((142, "Bug Contest"))
+    map_names.append((143, "Bug Contest (Tuesday)"))
+    map_names.append((144, "Bug Contest (Thursday)"))
+    map_names.append((145, "Bug Contest (Saturday)"))
     with open("hgss_en.txt", "w+", encoding="utf-8") as f:
         map_names.sort(key=lambda x: (x[1], x[0]))
         for num, name in map_names:
@@ -83,7 +83,7 @@ def bug():
         data = f.read()
 
     bug = bytearray()
-    LOCATION_START = 235
+    LOCATION_START = 142
     for i in range(4):
         bug += (LOCATION_START + i).to_bytes(1, "little")
         for j in range(10):
