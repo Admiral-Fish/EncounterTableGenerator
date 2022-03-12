@@ -1,3 +1,4 @@
+import json
 import os
 
 from .narc import Narc
@@ -11,28 +12,46 @@ def encounters():
     W_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw/w_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/bw/mapheaders.bin"
     MAP_NAMES = read_map_names(f"{SCRIPT_FOLDER}/bw/mapnames.bin")
+    LOCATION_MODIFIERS = f"{SCRIPT_FOLDER}/location_modifier.json"
 
     with open(MAP_HEADERS, "rb") as f:
         map_headers = []
         for _ in range(427):
             map_headers.append(f.read(48))
 
+    with open(LOCATION_MODIFIERS, "rb") as f:
+        location_modifiers = json.load(f)["bw"]
+
     b = bytes()
     w = bytes()
     map_names = []
     for map_header in map_headers:
         encounter_id = map_header[20] | (map_header[21] << 8)
+
+        # The lowest part in Relic Castle all share the same tables
+        if encounter_id in (16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 32):
+            continue
+
+        # The Volcarona room and it's entrance in Relic Castle share the same table
+        if encounter_id == 31:
+            continue
+
+        # Relic Castle B2F-B6F share the same tables
+        if encounter_id in (12, 13, 14, 33, 34, 35, 36, 37):
+            continue
+
+        # Relic Castle 1F-B1F share the same tables
+        if encounter_id in (10, 38, 39):
+            continue
+
         if encounter_id != 65535:
             location_number = map_header[26]
             location_name = MAP_NAMES[location_number]
+            if location_name in location_modifiers and str(encounter_id) in location_modifiers[location_name]:
+                location_name = location_modifiers[location_name][str(encounter_id)]
 
-            map_name = (location_number, location_name)
-            if map_name not in map_names:
-                map_names.append(map_name)
-            else:
-                count = sum([1 for _, name in map_names if name == location_name])
-                location_number |= (count << 8)
-                map_names.append((location_number, location_name))
+            map_name = (encounter_id, location_name)
+            map_names.append(map_name)
 
             # Black
             b += location_number.to_bytes(2, "little")
