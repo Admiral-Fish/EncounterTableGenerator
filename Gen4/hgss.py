@@ -76,8 +76,10 @@ def encounters():
     map_names.append((145, "Bug Contest (Saturday)"))
     with open("hgss_en.txt", "w+", encoding="utf-8") as f:
         map_names.sort(key=lambda x: (x[1], x[0]))
-        for num, name in map_names:
-            f.write(f"{num},{name}\n")
+        for i, (num, name) in enumerate(map_names):
+            f.write(f"{num},{name}")
+            if i != len(map_names) - 1:
+                f.write("\n")
 
 
 def bug():
