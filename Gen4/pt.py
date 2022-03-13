@@ -33,7 +33,7 @@ def encounters():
 
         if encounter_id != 65535:
             # Platinum
-            pt += encounter_id.to_bytes(2, "little")
+            pt += encounter_id.to_bytes(1, "little")
             pt += compress_encounter_dppt(PT_ENCOUNTERS[encounter_id])
 
     with open("platinum.bin", "wb+") as f:

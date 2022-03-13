@@ -57,11 +57,11 @@ def encounters():
             map_names.append(map_name)
 
             # HG
-            hg += encounter_id.to_bytes(2, "little")
+            hg += encounter_id.to_bytes(1, "little")
             hg += compress_encounter_hgss(HG_ENCOUNTERS[encounter_id])
 
             # SS
-            ss += encounter_id.to_bytes(2, "little")
+            ss += encounter_id.to_bytes(1, "little")
             ss += compress_encounter_hgss(SS_ENCOUNTERS[encounter_id])
 
     with open("heartgold.bin", "wb+") as f:

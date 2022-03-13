@@ -13,11 +13,11 @@ def compress_encounter_dppt(encounter: bytes):
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
-    # Morning
+    # Swarm
     for _ in range(2):
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
-    # Day
+    # Noon
     for _ in range(2):
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
@@ -33,7 +33,7 @@ def compress_encounter_dppt(encounter: bytes):
     for _ in range(5):
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
-    # TODO: what does this mean
+    # AnnoonTable TODO: what does this mean
     data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
     # Ruby
@@ -64,13 +64,10 @@ def compress_encounter_dppt(encounter: bytes):
         stream.read(2)
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
-    # Rock smash
-    data += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
+    # Rock smash (no actual rock smash encounters in DPPt)
+    stream.read(4)
     for _ in range(5):
-        data += struct.unpack("<B", stream.read(1))[0].to_bytes(1, "little")
-        data += struct.unpack("<B", stream.read(1))[0].to_bytes(1, "little")
-        stream.read(2)
-        data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+        stream.read(8)
 
     # Old rod
     data += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")

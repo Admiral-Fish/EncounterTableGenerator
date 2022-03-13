@@ -55,11 +55,11 @@ def encounters():
             map_names.append(map_name)
 
             # Diamond
-            d += encounter_id.to_bytes(2, "little")
+            d += encounter_id.to_bytes(1, "little")
             d += compress_encounter_dppt(D_ENCOUNTERS[encounter_id])
 
             # Pearl
-            p += encounter_id.to_bytes(2, "little")
+            p += encounter_id.to_bytes(1, "little")
             p += compress_encounter_dppt(P_ENCOUNTERS[encounter_id])
 
     with open("diamond.bin", "wb+") as f:
