@@ -64,10 +64,10 @@ def encounters():
             ss += encounter_id.to_bytes(2, "little")
             ss += compress_encounter_hgss(SS_ENCOUNTERS[encounter_id])
 
-    with open("hg.bin", "wb+") as f:
+    with open("heartgold.bin", "wb+") as f:
         f.write(hg)
 
-    with open("ss.bin", "wb+") as f:
+    with open("soulsilver.bin", "wb+") as f:
         f.write(ss)
 
     map_names.append((142, "Bug Contest"))
@@ -103,5 +103,5 @@ def bug():
             bug += max_level.to_bytes(1, "little")
             bug += species.to_bytes(2, "little")
 
-    with open("heartgold_bug.bin", "wb") as f:
+    with open("hgss_bug.bin", "wb") as f:
         f.write(bug)

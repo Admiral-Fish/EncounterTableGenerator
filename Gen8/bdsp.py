@@ -193,7 +193,7 @@ def encounters():
     with open("bd.bin", "wb+") as f:
         f.write(d)
 
-    with open("dp.bin", "wb+") as f:
+    with open("sp.bin", "wb+") as f:
         f.write(p)
 
     with open("bdsp_en.txt", "w+", encoding="utf-8") as f:
