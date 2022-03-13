@@ -29,12 +29,12 @@ def compress_encounter_dppt(encounter: bytes):
     for _ in range(4):
         data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
 
-    # Forms TODO: what does this mean
+    # Forms (impacts Gastrodon, no rng call; skipping)
     for _ in range(5):
-        data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+        stream.read(4)
 
-    # AnnoonTable TODO: what does this mean
-    data += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    # AnnoonTable (used for unown)
+    data += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
 
     # Ruby
     for _ in range(2):
