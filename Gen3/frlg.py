@@ -129,7 +129,7 @@ def encounters():
         f.write(lg)
 
     with open("frlg_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: (x[1], x[0]))
+        map_names.sort(key=lambda x: x[0])
         for i, (num, name) in enumerate(map_names):
             f.write(f"{num},{name}")
             if i != len(map_names) - 1:
