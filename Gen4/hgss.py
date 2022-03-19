@@ -96,7 +96,7 @@ def bug():
     for i in range(4):
         bug += (LOCATION_START + i).to_bytes(1, "little")
         for j in range(10):
-            offset = (i * 10) + (j * 8)
+            offset = (i * 80) + (j * 8)
 
             species = data[offset] | (data[offset + 1] << 8)
             min_level = data[offset + 2]
