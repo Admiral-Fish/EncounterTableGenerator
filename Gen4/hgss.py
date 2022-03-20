@@ -1,5 +1,7 @@
-import os
+import io
 import json
+import os
+import struct
 
 from .compress import compress_encounter_hgss
 from .narc import Narc
@@ -89,21 +91,20 @@ def bug():
     BUG_ENCOUNT = f"{SCRIPT_FOLDER}/hgss/mushi_encount.bin"
 
     with open(BUG_ENCOUNT, "rb") as f:
-        data = f.read()
+        bug_stream = io.BytesIO(f.read())
 
     bug = bytearray()
     LOCATION_START = 142
     for i in range(4):
         bug += (LOCATION_START + i).to_bytes(1, "little")
-        for j in range(10):
-            offset = (i * 10) + (j * 8)
+        for _ in range(10):
+            species, = struct.unpack("<H", bug_stream.read(2))
+            min_level = bug_stream.read(1)
+            max_level = bug_stream.read(1)
+            bug_stream.read(4)
 
-            species = data[offset] | (data[offset + 1] << 8)
-            min_level = data[offset + 2]
-            max_level = data[offset + 3]
-
-            bug += min_level.to_bytes(1, "little")
-            bug += max_level.to_bytes(1, "little")
+            bug += min_level
+            bug += max_level
             bug += species.to_bytes(2, "little")
 
     with open("hgss_bug.bin", "wb") as f:
