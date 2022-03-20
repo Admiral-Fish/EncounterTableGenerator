@@ -98,14 +98,10 @@ def bug():
     for i in range(4):
         bug += (LOCATION_START + i).to_bytes(1, "little")
         for _ in range(10):
-            species, = struct.unpack("<H", bug_stream.read(2))
-            min_level = bug_stream.read(1)
-            max_level = bug_stream.read(1)
+            bug += struct.unpack("<H", bug_stream.read(2))[0].to_bytes(2, "little") # Specie
+            bug += bug_stream.read(1) # Min level
+            bug += bug_stream.read(1) # Max level
             bug_stream.read(4)
-
-            bug += min_level
-            bug += max_level
-            bug += species.to_bytes(2, "little")
 
     with open("hgss_bug.bin", "wb") as f:
         f.write(bug)
