@@ -154,26 +154,19 @@ def headbutt():
         ss_stream.seek(4)
 
         # Add normal tree tables
-        for tree_type in range(2):
-            hg_headbutt += tree_type.to_bytes(1, "little")
-            ss_headbutt += tree_type.to_bytes(1, "little")
+        for _ in range(12):
+            # Species
+            hg_headbutt += struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
+            hg_headbutt += hg_stream.read(1) # Min level
+            hg_headbutt += hg_stream.read(1) # Max level
 
-            for _ in range(6):
-                # Species
-                hg_headbutt += struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
-                hg_headbutt += hg_stream.read(1) # Min level
-                hg_headbutt += hg_stream.read(1) # Max level
-
-                # Species
-                ss_headbutt += struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
-                ss_headbutt += ss_stream.read(1) # Min level
-                ss_headbutt += ss_stream.read(1) # Max level
+            # Species
+            ss_headbutt += struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
+            ss_headbutt += ss_stream.read(1) # Min level
+            ss_headbutt += ss_stream.read(1) # Max level
 
         # Check for special trees
         if hg_special_trees != 0:
-            hg_headbutt += int(2).to_bytes(1, "little")
-            ss_headbutt += int(2).to_bytes(1, "little")
-
             for _ in range(6):
                 # Species
                 hg_headbutt += struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
