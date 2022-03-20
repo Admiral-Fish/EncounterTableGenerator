@@ -112,116 +112,78 @@ def bug():
 
 
 def headbutt():
-    HG_HEADBUTT_ENCOUNT = f"{SCRIPT_FOLDER}/hgss/hg_headbutt"
-    SS_HEADBUTT_ENCOUNT = f"{SCRIPT_FOLDER}/hgss/ss_headbutt"
-
-    with open(HG_HEADBUTT_ENCOUNT, "rb") as f:
-        hg_data = f.read()
-
-    with open(SS_HEADBUTT_ENCOUNT, "rb") as f:
-        ss_data = f.read()
+    HG_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/hg_headbutt").get_elements()
+    SS_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/ss_headbutt").get_elements()
 
     locations = [
-    111, 112, 113, 114, 115, 116, 117, 118, 121, 92, 122,
-    123, 124, 125, 127, 129, 131, 103, 104, 105, 1, 3,
-    4, 8, 17, 21, 22, 25, 26, 38, 39, 52, 57, 59,
-    67, 68, 95, 96, 147, 97, 98, 99, 100, 0, 2, 5,
-    146, 27, 58, 85, 128, 24, 20, 137, 71, 102, 148,
-    136, 125, 87]
+        111, 112, 113, 114, 115, 116, 117, 118, 121, 92, 122, 123,
+        124, 125, 127, 129, 131, 103, 104, 105, 1, 3, 4, 8,
+        17, 21, 22, 25, 26, 38, 39, 52, 57, 59, 67, 68,
+        95, 96, 147, 97, 98, 99, 100, 0, 2, 5, 146, 27,
+        58, 85, 128, 24, 20, 137, 71, 102, 148, 136, 125, 87
+    ]
 
+    index = 0
     hg_headbutt = bytearray()
     ss_headbutt = bytearray()
-    offset = 4408
-    for i in range(60):
-        # skip double Route 16
-        if i != 58:
-            hg_headbutt += locations[i].to_bytes(1, "little")
-            ss_headbutt += locations[i].to_bytes(1, "little")
+    # HG and SS encounters fairly match except for minor differences in levels
+    for hg_encounter, ss_encounter in zip(HG_HEADBUTT_ENCOUNT, SS_HEADBUTT_ENCOUNT):
+        # If there are no trees, then skip
+        if hg_encounter[0] == 0 and hg_encounter[2] == 0:
+            continue
 
-        hg_normal_trees = hg_data[offset]
-        ss_normal_trees = ss_data[offset]
-        offset += 2
+        # Skip double Route 16
+        if index == 58:
+            index += 1
+            continue
+        else:
+            hg_headbutt += locations[index].to_bytes(1, "little")
+            ss_headbutt += locations[index].to_bytes(1, "little")
+            index += 1
 
-        hg_special_trees = hg_data[offset]
-        ss_special_trees = ss_data[offset]
-        hg_special_trees_flag = 1 if hg_special_trees != 0 else 0
-        ss_special_trees_flag = 1 if ss_special_trees != 0 else 0
-        offset += 2
+        hg_special_trees = 1 if hg_encounter[2] != 0 else 0
+        ss_special_trees = 1 if ss_encounter[2] != 0 else 0
 
-        # skip double Route 16
-        if i != 58:
-            hg_headbutt += hg_special_trees_flag.to_bytes(1, "little")
-            ss_headbutt += ss_special_trees_flag.to_bytes(1, "little")
+        hg_headbutt += hg_special_trees.to_bytes(1, "little")
+        ss_headbutt += ss_special_trees.to_bytes(1, "little")
 
-        # normal1, normal2
+        hg_stream = io.BytesIO(hg_encounter)
+        hg_stream.seek(4)
+
+        ss_stream = io.BytesIO(ss_encounter)
+        ss_stream.seek(4)
+
+        # Add normal tree tables
         for tree_type in range(2):
-            # skip double Route 16
-            if i != 58:
-                hg_headbutt += tree_type.to_bytes(1, "little")
-                ss_headbutt += tree_type.to_bytes(1, "little")
+            hg_headbutt += tree_type.to_bytes(1, "little")
+            ss_headbutt += tree_type.to_bytes(1, "little")
 
-            for n in range(6):
-                hg_species = hg_data[offset] | (hg_data[offset + 1] << 8)
-                ss_species = ss_data[offset] | (ss_data[offset + 1] << 8)
-                offset += 2
+            for _ in range(6):
+                # Species
+                hg_headbutt += struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
+                hg_headbutt += hg_stream.read(1) # Min level
+                hg_headbutt += hg_stream.read(1) # Max level
 
-                hg_min_level = hg_data[offset]
-                ss_min_level = ss_data[offset]
-                offset += 1
+                # Species
+                ss_headbutt += struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
+                ss_headbutt += ss_stream.read(1) # Min level
+                ss_headbutt += ss_stream.read(1) # Max level
 
-                hg_max_level = hg_data[offset]
-                ss_max_level = ss_data[offset]
-                offset += 1
-
-                # skip double Route 16
-                if i != 58:
-                    hg_headbutt += hg_min_level.to_bytes(1, "little")
-                    hg_headbutt += hg_max_level.to_bytes(1, "little")
-                    hg_headbutt += hg_species.to_bytes(2, "little")
-                    ss_headbutt += ss_min_level.to_bytes(1, "little")
-                    ss_headbutt += ss_max_level.to_bytes(1, "little")
-                    ss_headbutt += ss_species.to_bytes(2, "little")
-
-        # special
+        # Check for special trees
         if hg_special_trees != 0:
-            tree_type = 2
+            hg_headbutt += int(2).to_bytes(1, "little")
+            ss_headbutt += int(2).to_bytes(1, "little")
 
-            # skip double Route 16
-            if i != 58:
-                hg_headbutt += tree_type.to_bytes(1, "little")
-                ss_headbutt += tree_type.to_bytes(1, "little")
+            for _ in range(6):
+                # Species
+                hg_headbutt += struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
+                hg_headbutt += hg_stream.read(1) # Min level
+                hg_headbutt += hg_stream.read(1) # Max level
 
-            for s in range(6):
-                hg_s_species = hg_data[offset] | (hg_data[offset + 1] << 8)
-                ss_s_species = ss_data[offset] | (ss_data[offset + 1] << 8)
-                offset += 2
-
-                hg_s_min_level = hg_data[offset]
-                ss_s_min_level = ss_data[offset]
-                offset += 1
-
-                hg_s_max_level = hg_data[offset]
-                ss_s_max_level = ss_data[offset]
-                offset += 1
-
-                # skip double Route 16
-                if i != 58:
-                    hg_headbutt += hg_s_min_level.to_bytes(1, "little")
-                    hg_headbutt += hg_s_max_level.to_bytes(1, "little")
-                    hg_headbutt += hg_s_species.to_bytes(2, "little")
-                    ss_headbutt += ss_s_min_level.to_bytes(1, "little")
-                    ss_headbutt += ss_s_max_level.to_bytes(1, "little")
-                    ss_headbutt += ss_s_species.to_bytes(2, "little")
-        else: # skip in case there aren't any special trees
-            offset += 24
-
-        # skips trees coordinates
-        offset += (hg_normal_trees + hg_special_trees) * 24
-
-        # skip padding between every area
-        if i < 59:
-            while hg_data[offset] == 0:
-                offset += 1
+                # Species
+                ss_headbutt += struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
+                ss_headbutt += ss_stream.read(1) # Min level
+                ss_headbutt += ss_stream.read(1) # Max level
 
     with open("hg_headbutt.bin", "wb") as f:
         f.write(hg_headbutt)
