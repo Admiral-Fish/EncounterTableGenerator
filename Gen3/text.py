@@ -1,5 +1,8 @@
 import re
 
+import requests
+
+
 def clean_string(map_string: str):
     map_string = map_string.replace("MAP_", "").replace("_", " ")
 
@@ -19,3 +22,19 @@ def clean_string(map_string: str):
             strings[i] = string.capitalize()
 
     return " ".join(strings)
+
+
+def load_pokemon():    
+    POKEMON = "https://raw.githubusercontent.com/Admiral-Fish/PokeFinder/master/Source/Core/Resources/i18n/en/species_en.txt"
+
+    with requests.get(POKEMON) as r:
+        pokemon = {}
+        for i, name in enumerate(r.content.decode("utf-8-sig").splitlines()):
+            if name == "Nidoran♂":
+                name = "NIDORAN_M"
+            elif name == "Nidoran♀":
+                name = "NIDORAN_F"
+
+            pokemon[f"SPECIES_{name.upper()}"] = i + 1
+
+        return pokemon

@@ -3,7 +3,7 @@ import re
 
 import requests
 
-from .text import clean_string
+from .text import clean_string, load_pokemon
 
 
 def create_encounter(encounter: dict, map_number: int, pokemon: dict):
@@ -82,7 +82,6 @@ def create_encounter(encounter: dict, map_number: int, pokemon: dict):
 def encounters():
     DATA = "https://raw.githubusercontent.com/pret/pokeruby/master/src/data/wild_encounters.json"
     MAPS = "https://raw.githubusercontent.com/pret/pokeruby/master/include/constants/map_groups.h"
-    POKEMON = "https://raw.githubusercontent.com/pret/pokeruby/master/include/constants/species.h"
 
     with requests.get(DATA) as r:
         data = json.loads(r.content)
@@ -93,11 +92,7 @@ def encounters():
         for map, num in matches:
             maps[map] = eval(num)
 
-    with requests.get(POKEMON) as r:
-        matches = re.findall(r"#define (.+) (\d+)", r.content.decode("utf-8"))
-        pokemon = {}
-        for name, num in matches:
-            pokemon[name] = int(num)
+    pokemon = load_pokemon()
 
     encounters = data["wild_encounter_groups"][0]["encounters"]
     map_names = []
