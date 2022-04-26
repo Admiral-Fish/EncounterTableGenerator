@@ -4,6 +4,7 @@ def create_encounters():
     hgss.encounters()
     hgss.bug()
     hgss.headbutt()
+    hgss.safari()
 
     dp.encounters()
 

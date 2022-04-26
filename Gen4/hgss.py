@@ -79,6 +79,18 @@ def encounters():
     map_names.append((146, "Azalea Town"))
     map_names.append((147, "Pewter City"))
     map_names.append((148, "Safari Zone Gate"))
+    map_names.append((149, "Safari Zone (Plains)"))
+    map_names.append((150, "Safari Zone (Meadow)"))
+    map_names.append((151, "Safari Zone (Savannah)"))
+    map_names.append((152, "Safari Zone (Peak)"))
+    map_names.append((153, "Safari Zone (Rocky Beach)"))
+    map_names.append((154, "Safari Zone (Wetland)"))
+    map_names.append((155, "Safari Zone (Forest)"))
+    map_names.append((156, "Safari Zone (Swamp)"))
+    map_names.append((157, "Safari Zone (Marshland)"))
+    map_names.append((158, "Safari Zone (Wasteland)"))
+    map_names.append((159, "Safari Zone (Mountain)"))
+    map_names.append((160, "Safari Zone (Desert)"))
     with open("hgss_en.txt", "w+", encoding="utf-8") as f:
         map_names.sort(key=lambda x: x[0])
         for i, (num, name) in enumerate(map_names):
@@ -179,3 +191,77 @@ def headbutt():
 
     with open("ss_headbutt.bin", "wb") as f:
         f.write(ss_headbutt)
+
+def safari():
+    SAFARI_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/safari").get_elements()
+
+    index = 0
+    safari = bytearray()
+    LOCATION_START = 149
+    # HG and SS encounters match
+    for safari_encounter in SAFARI_ENCOUNT:
+        safari += (LOCATION_START + index).to_bytes(1, "little")
+
+        # Water flag
+        if index not in [1, 4, 5, 7, 8]:
+            safari += (0).to_bytes(1, "little")
+        else:
+            safari += (1).to_bytes(1, "little")
+
+        safari_stream = io.BytesIO(safari_encounter)
+
+        tall_grass_encounters = safari_encounter[0]
+        surfing_encounters = safari_encounter[1]
+        old_rod_encounters = safari_encounter[2]
+        good_rod_encounters = safari_encounter[3]
+        super_rod_encounters = safari_encounter[4]
+
+        encounters = [
+            tall_grass_encounters, surfing_encounters, old_rod_encounters,
+            good_rod_encounters, super_rod_encounters
+        ]
+
+        safari_stream.seek(8)
+
+        encounter_index = 0
+        # Grass, Surfing, Old Rod, Good Rod, Super Rod
+        for _ in range(5):
+            for _ in range(30):
+                # Surfing and Rods encounters aren't time based
+                if encounter_index < 1 or _ < 10:
+                    # Species
+                    safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
+                    safari += safari_stream.read(1) # Level
+                else:
+                    safari_stream.read(3)
+
+                safari_stream.read(1) # Padding
+
+            for _ in range(encounters[encounter_index] * 3):
+                # Surfing and Rods encounters aren't time based
+                if encounter_index < 1 or _ < encounters[encounter_index]:
+                    # Block Species
+                    safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
+                    safari += safari_stream.read(1) # Level
+                else:
+                    safari_stream.read(3)
+
+                safari_stream.read(1) # Padding
+
+            for _ in range(encounters[encounter_index]):
+                # Blocks
+                safari += safari_stream.read(1) # First Object Type
+                safari += safari_stream.read(1) # First Object Quantity
+                safari += safari_stream.read(1) # Second Object Type
+                safari += safari_stream.read(1) # Second Object Quantity
+
+            # Skip water encounters in areas without water  
+            if index not in [1, 4, 5, 7, 8]:
+                break
+
+            encounter_index += 1
+
+        index += 1
+
+    with open("hgss_safari.bin", "wb") as f:
+        f.write(safari)
