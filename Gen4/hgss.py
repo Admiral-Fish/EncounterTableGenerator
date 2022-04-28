@@ -226,9 +226,9 @@ def safari():
         encounter_index = 0
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
         for _ in range(5):
-            for _ in range(30):
+            for grass_slot in range(30):
                 # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or _ < 10:
+                if encounter_index < 1 or grass_slot < 10:
                     # Species
                     safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                     safari += safari_stream.read(1) # Level
@@ -237,9 +237,9 @@ def safari():
 
                 safari_stream.read(1) # Padding
 
-            for _ in range(encounters[encounter_index] * 3):
+            for water_slot in range(encounters[encounter_index] * 3):
                 # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or _ < encounters[encounter_index]:
+                if encounter_index < 1 or water_slot < encounters[encounter_index]:
                     # Block Species
                     safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                     safari += safari_stream.read(1) # Level
