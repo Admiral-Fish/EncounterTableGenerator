@@ -207,11 +207,11 @@ def safari():
 
         safari_stream = io.BytesIO(safari_encounter)
 
-        tall_grass_encounters = safari_encounter[0]
-        surfing_encounters = safari_encounter[1]
-        old_rod_encounters = safari_encounter[2]
-        good_rod_encounters = safari_encounter[3]
-        super_rod_encounters = safari_encounter[4]
+        tall_grass_encounters = safari_encounter[0] # 10
+        surfing_encounters = safari_encounter[1] # 3
+        old_rod_encounters = safari_encounter[2] # 2
+        good_rod_encounters = safari_encounter[3] # 2
+        super_rod_encounters = safari_encounter[4] # 2
 
         encounters = [
             tall_grass_encounters, surfing_encounters, old_rod_encounters,
@@ -220,12 +220,11 @@ def safari():
 
         safari_stream.seek(8)
 
-        encounter_index = 0
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
-        for _ in range(5):
-            for grass_slot in range(30):
+        for encounter_index in range(5):
+            for normal_slot in range(30):
                 # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or grass_slot < 10:
+                if encounter_index < 1 or normal_slot < 10:
                     # Species
                     safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                     safari += safari_stream.read(1) # Level
@@ -234,9 +233,9 @@ def safari():
 
                 safari_stream.read(1) # Padding
 
-            for water_slot in range(encounters[encounter_index] * 3):
+            for block_slot in range(encounters[encounter_index] * 3):
                 # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or water_slot < encounters[encounter_index]:
+                if encounter_index < 1 or block_slot < encounters[encounter_index]:
                     # Block Species
                     safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                     safari += safari_stream.read(1) # Level
@@ -247,16 +246,14 @@ def safari():
 
             for _ in range(encounters[encounter_index]):
                 # Blocks
-                safari += safari_stream.read(1) # First Object Type
-                safari += safari_stream.read(1) # First Object Quantity
-                safari += safari_stream.read(1) # Second Object Type
-                safari += safari_stream.read(1) # Second Object Quantity
+                safari += safari_stream.read(1) # First Block Object Type
+                safari += safari_stream.read(1) # First Block Object Quantity
+                safari += safari_stream.read(1) # Second Block Object Type
+                safari += safari_stream.read(1) # Second Block Object Quantity
 
             # Skip water encounters in areas without water  
             if index not in [1, 4, 5, 7, 8]:
                 break
-
-            encounter_index += 1
 
         index += 1
 
