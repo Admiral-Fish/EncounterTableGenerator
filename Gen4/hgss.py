@@ -203,10 +203,7 @@ def safari():
         safari += (LOCATION_START + index).to_bytes(1, "little")
 
         # Water flag
-        if index not in [1, 4, 5, 7, 8]:
-            safari += (0).to_bytes(1, "little")
-        else:
-            safari += (1).to_bytes(1, "little")
+        safari += (0 if index not in [1, 4, 5, 7, 8] else 1).to_bytes(1, "little")
 
         safari_stream = io.BytesIO(safari_encounter)
 
