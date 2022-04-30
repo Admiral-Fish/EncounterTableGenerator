@@ -222,7 +222,7 @@ def safari():
         safari_stream.seek(8)
 
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
-        for encounter in enumerate(encounters):
+        for encounter in encounters:
             for _ in range(30):
                 # Species
                 safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
