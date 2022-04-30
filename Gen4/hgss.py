@@ -123,13 +123,13 @@ def headbutt():
     HG_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/hg_headbutt").get_elements()
     SS_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/ss_headbutt").get_elements()
 
-    locations = [
+    locations = (
         111, 112, 113, 114, 115, 116, 117, 118, 121, 92, 122, 123,
         124, 125, 127, 129, 131, 103, 104, 105, 1, 3, 4, 8,
         17, 21, 22, 25, 26, 38, 39, 52, 57, 59, 67, 68,
         95, 96, 147, 97, 98, 99, 100, 0, 2, 5, 146, 27,
         58, 85, 128, 24, 20, 137, 71, 102, 148, 136, 125, 87
-    ]
+    )
 
     index = 0
     hg_headbutt = bytearray()
@@ -192,18 +192,19 @@ def headbutt():
     with open("ss_headbutt.bin", "wb") as f:
         f.write(ss_headbutt)
 
+
 def safari():
     SAFARI_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/safari").get_elements()
 
-    index = 0
     safari = bytearray()
     LOCATION_START = 149
     # HG and SS encounters match
-    for safari_encounter in SAFARI_ENCOUNT:
+    for index, safari_encounter in enumerate(SAFARI_ENCOUNT):
         safari += (LOCATION_START + index).to_bytes(1, "little")
 
         # Water flag
-        safari += (0 if index not in [1, 4, 5, 7, 8] else 1).to_bytes(1, "little")
+        water_flag = index not in (1, 4, 5, 7, 8)
+        safari += b"\x00" if water_flag else b"\x01"
 
         safari_stream = io.BytesIO(safari_encounter)
 
@@ -213,15 +214,15 @@ def safari():
         good_rod_encounters = safari_encounter[3] # 2
         super_rod_encounters = safari_encounter[4] # 2
 
-        encounters = [
+        encounters = (
             tall_grass_encounters, surfing_encounters, old_rod_encounters,
             good_rod_encounters, super_rod_encounters
-        ]
+        )
 
         safari_stream.seek(8)
 
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
-        for encounter_index in range(5):
+        for encounter_index, encounter in enumerate(encounters):
             for normal_slot in range(30):
                 # Surfing and Rods encounters aren't time based
                 if encounter_index < 1 or normal_slot < 10:
@@ -233,9 +234,9 @@ def safari():
 
                 safari_stream.read(1) # Padding
 
-            for block_slot in range(encounters[encounter_index] * 3):
+            for block_slot in range(encounter * 3):
                 # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or block_slot < encounters[encounter_index]:
+                if encounter_index < 1 or block_slot < encounter:
                     # Block Species
                     safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                     safari += safari_stream.read(1) # Level
@@ -244,18 +245,16 @@ def safari():
 
                 safari_stream.read(1) # Padding
 
-            for _ in range(encounters[encounter_index]):
+            for _ in range(encounter):
                 # Blocks
                 safari += safari_stream.read(1) # First Block Object Type
                 safari += safari_stream.read(1) # First Block Object Quantity
                 safari += safari_stream.read(1) # Second Block Object Type
                 safari += safari_stream.read(1) # Second Block Object Quantity
 
-            # Skip water encounters in areas without water  
-            if index not in [1, 4, 5, 7, 8]:
+            # Skip water encounters in areas without water
+            if water_flag:
                 break
-
-        index += 1
 
     with open("hgss_safari.bin", "wb") as f:
         f.write(safari)
