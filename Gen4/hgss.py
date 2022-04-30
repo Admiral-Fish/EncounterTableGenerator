@@ -222,14 +222,14 @@ def safari():
         safari_stream.seek(8)
 
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
-        for encounter_index, encounter in enumerate(encounters):
-            for normal_slot in range(30):
+        for encounter in enumerate(encounters):
+            for _ in range(30):
                 # Species
                 safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                 safari += safari_stream.read(1) # Level
                 safari_stream.read(1) # Padding
 
-            for block_slot in range(encounter * 3):
+            for _ in range(encounter * 3):
                 # Block Species
                 safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
                 safari += safari_stream.read(1) # Level
