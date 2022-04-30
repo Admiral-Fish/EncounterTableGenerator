@@ -224,25 +224,15 @@ def safari():
         # Grass, Surfing, Old Rod, Good Rod, Super Rod
         for encounter_index, encounter in enumerate(encounters):
             for normal_slot in range(30):
-                # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or normal_slot < 10:
-                    # Species
-                    safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
-                    safari += safari_stream.read(1) # Level
-                else:
-                    safari_stream.read(3)
-
+                # Species
+                safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
+                safari += safari_stream.read(1) # Level
                 safari_stream.read(1) # Padding
 
             for block_slot in range(encounter * 3):
-                # Surfing and Rods encounters aren't time based
-                if encounter_index < 1 or block_slot < encounter:
-                    # Block Species
-                    safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
-                    safari += safari_stream.read(1) # Level
-                else:
-                    safari_stream.read(3)
-
+                # Block Species
+                safari += struct.unpack("<H", safari_stream.read(2))[0].to_bytes(2, "little")
+                safari += safari_stream.read(1) # Level
                 safari_stream.read(1) # Padding
 
             for _ in range(encounter):
