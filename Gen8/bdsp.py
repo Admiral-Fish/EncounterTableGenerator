@@ -10,6 +10,19 @@ def encounters():
     MAP_INFO = f"{SCRIPT_FOLDER}/bdsp/MapInfo.json"
     AREA_NAME = f"{SCRIPT_FOLDER}/bdsp/english_dp_fld_areaname.json"
     LOCATION_MODIFIERS = f"{SCRIPT_FOLDER}/location_modifier.json"
+    UG_ENCOUNT_02 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_02.json"
+    UG_ENCOUNT_03 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_03.json"
+    UG_ENCOUNT_04 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_04.json"
+    UG_ENCOUNT_05 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_05.json"
+    UG_ENCOUNT_06 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_06.json"
+    UG_ENCOUNT_07 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_07.json"
+    UG_ENCOUNT_08 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_08.json"
+    UG_ENCOUNT_09 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_09.json"
+    UG_ENCOUNT_10 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_10.json"
+    UG_ENCOUNT_11 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_11.json"
+    UG_ENCOUNT_12 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_12.json"
+    UG_ENCOUNT_20 = f"{SCRIPT_FOLDER}/bdsp/UgEncount_20.json"
+    UG_SPECIAL_POKEMON = f"{SCRIPT_FOLDER}/bdsp/UgSpecialPokemon.json"
 
     with open(D_ENCOUNTERS, "r") as f:
         d_encounters = json.load(f)["table"]
@@ -26,8 +39,49 @@ def encounters():
     with open(LOCATION_MODIFIERS, "rb") as f:
         location_modifiers = json.load(f)["bdsp"]
 
+    with open(UG_ENCOUNT_02, "r") as f:
+        ug_encount_02 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_03, "r") as f:
+        ug_encount_03 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_04, "r") as f:
+        ug_encount_04 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_05, "r") as f:
+        ug_encount_05 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_06, "r") as f:
+        ug_encount_06 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_07, "r") as f:
+        ug_encount_07 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_08, "r") as f:
+        ug_encount_08 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_09, "r") as f:
+        ug_encount_09 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_10, "r") as f:
+        ug_encount_10 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_11, "r") as f:
+        ug_encount_11 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_12, "r") as f:
+        ug_encount_12 = json.load(f)["table"]
+
+    with open(UG_ENCOUNT_20, "r") as f:
+        ug_encount_20 = json.load(f)["table"]
+
+    with open(UG_SPECIAL_POKEMON, "r") as f:
+        ug_special_encounters = json.load(f)["Sheet1"]
+
     d = bytes()
     p = bytes()
+    ug_encount = bytes()
+    ug_special_pokemon = bytes()
     map_names = []
 
     for map_number, encounter in enumerate(d_encounters):
@@ -190,11 +244,96 @@ def encounters():
             p += entry["minlv"].to_bytes(1, "little")
             p += entry["monsNo"].to_bytes(2, "little")
 
+    for pokemon in ug_encount_02:
+        ug_encount += (2).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_03:
+        ug_encount += (3).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_04:
+        ug_encount += (4).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_05:
+        ug_encount += (5).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_06:
+        ug_encount += (6).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_07:
+        ug_encount += (7).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_08:
+        ug_encount += (8).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_09:
+        ug_encount += (9).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_10:
+        ug_encount += (10).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_11:
+        ug_encount += (11).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_12:
+        ug_encount += (12).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_encount_20:
+        ug_encount += (20).to_bytes(1, "little")
+        ug_encount += pokemon["monsno"].to_bytes(2, "little")
+        ug_encount += pokemon["version"].to_bytes(1, "little")
+        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
+
+    for pokemon in ug_special_encounters:
+        ug_special_pokemon += pokemon["id"].to_bytes(1, "little")
+        ug_special_pokemon += pokemon["monsno"].to_bytes(2, "little")
+        ug_special_pokemon += pokemon["version"].to_bytes(1, "little")
+        ug_special_pokemon += pokemon["Dspecialrate"].to_bytes(2, "little")
+        ug_special_pokemon += pokemon["Pspecialrate"].to_bytes(2, "little")
+
     with open("bd.bin", "wb+") as f:
         f.write(d)
 
     with open("sp.bin", "wb+") as f:
         f.write(p)
+
+    with open("ug_encount.bin", "wb+") as f:
+        f.write(ug_encount)
+
+    with open("ug_special_pokemon.bin", "wb+") as f:
+        f.write(ug_special_pokemon)
 
     with open("bdsp_en.txt", "w+", encoding="utf-8") as f:
         map_names.sort(key=lambda x: x[0])
@@ -202,3 +341,77 @@ def encounters():
             f.write(f"{num},{name}")
             if i != len(map_names) - 1:
                 f.write("\n")
+
+def ug_extra_data():
+    UG_RAND_MARK = f"{SCRIPT_FOLDER}/bdsp/UgRandMark.json"
+    TAMAGO_WAZA_TABLE = f"{SCRIPT_FOLDER}/bdsp/TamagoWazaTable.json"
+    TAMAGO_WAZA_IGNORE_TABLE = f"{SCRIPT_FOLDER}/bdsp/UgTamagoWazaIgnoreTable.json"
+    UG_POKEMON_DATA = f"{SCRIPT_FOLDER}/bdsp/UgPokemonData.json"
+
+    with open(UG_RAND_MARK, "r") as f:
+        ug_rand_mark_json = json.load(f)["table"]
+
+    with open(TAMAGO_WAZA_TABLE, "r") as f:
+        tamago_waza_table_json = json.load(f)["Data"]
+
+    with open(TAMAGO_WAZA_IGNORE_TABLE, "r") as f:
+        tamago_waza_ignore_table_json = json.load(f)["Sheet1"]
+
+    with open(UG_POKEMON_DATA, "r") as f:
+        ug_pokemon_data_json = json.load(f)["table"]
+
+    ug_rand_mark = bytes()
+    tamago_waza_table = bytes()
+    tamago_waza_ignore_table = bytes()
+    ug_pokemon_data = bytes()
+
+    for entry in ug_rand_mark_json:
+        ug_rand_mark += entry["id"].to_bytes(1, "little")
+        encount_id = int(entry["FileName"].replace("UgEncount_", ""))
+        ug_rand_mark += encount_id.to_bytes(1, "little")
+        ug_rand_mark += entry["min"].to_bytes(1, "little")
+        ug_rand_mark += entry["max"].to_bytes(1, "little")
+        ug_rand_mark += entry["smax"].to_bytes(1, "little")
+        ug_rand_mark += entry["mmax"].to_bytes(1, "little")
+        ug_rand_mark += entry["lmax"].to_bytes(1, "little")
+        ug_rand_mark += entry["llmax"].to_bytes(1, "little")
+        for rate in entry["typerate"]:
+            ug_rand_mark += rate.to_bytes(1, "little")
+
+    for entry in tamago_waza_table_json:
+        tamago_waza_table += entry["no"].to_bytes(2, "little")
+        tamago_waza_table += entry["formNo"].to_bytes(1, "little")
+        waza = entry["wazaNo"]
+        tamago_waza_table += len(waza).to_bytes(1, "little")
+        for move_no in waza:
+            tamago_waza_table += move_no.to_bytes(2, "little")
+
+    for entry in tamago_waza_ignore_table_json:
+        tamago_waza_ignore_table += entry["MonsNo"].to_bytes(2, "little")
+        for move_no in entry["Waza"]:
+            tamago_waza_ignore_table += move_no.to_bytes(2, "little")
+
+    for entry in ug_pokemon_data_json:
+        ug_pokemon_data += entry["monsno"].to_bytes(2, "little")
+        ug_pokemon_data += entry["type1ID"].to_bytes(1, "little")
+        type_2 = entry["type2ID"]
+        if type_2 == -1:
+            ug_pokemon_data += (18).to_bytes(1, "little")
+        else:
+            ug_pokemon_data += entry["type2ID"].to_bytes(1, "little")
+        ug_pokemon_data += entry["size"].to_bytes(1, "little")
+        for rate in entry["flagrate"]:
+            ug_pokemon_data += rate.to_bytes(1, "little")
+        ug_pokemon_data += entry["rateup"].to_bytes(1, "little")
+
+    with open("ug_rand_mark.bin", "wb+") as f:
+        f.write(ug_rand_mark)
+
+    with open("tamago_waza_table.bin", "wb+") as f:
+        f.write(tamago_waza_table)
+
+    with open("tamago_waza_ignore_table.bin", "wb+") as f:
+        f.write(tamago_waza_ignore_table)
+        
+    with open("ug_pokemon_data.bin", "wb+") as f:
+        f.write(ug_pokemon_data)
