@@ -72,9 +72,6 @@ def encounters():
     with open(UG_ENCOUNT_12, "r") as f:
         ug_encount_12 = json.load(f)["table"]
 
-    with open(UG_ENCOUNT_20, "r") as f:
-        ug_encount_20 = json.load(f)["table"]
-
     with open(UG_SPECIAL_POKEMON, "r") as f:
         ug_special_encounters = json.load(f)["Sheet1"]
 
@@ -310,12 +307,6 @@ def encounters():
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
-    for pokemon in ug_encount_20:
-        ug_encount += (20).to_bytes(1, "little")
-        ug_encount += pokemon["monsno"].to_bytes(2, "little")
-        ug_encount += pokemon["version"].to_bytes(1, "little")
-        ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
-
     for pokemon in ug_special_encounters:
         ug_special_pokemon += pokemon["id"].to_bytes(1, "little")
         ug_special_pokemon += pokemon["monsno"].to_bytes(2, "little")
@@ -366,17 +357,18 @@ def ug_extra_data():
     ug_pokemon_data = bytes()
 
     for entry in ug_rand_mark_json:
-        ug_rand_mark += entry["id"].to_bytes(1, "little")
-        encount_id = int(entry["FileName"].replace("UgEncount_", ""))
-        ug_rand_mark += encount_id.to_bytes(1, "little")
-        ug_rand_mark += entry["min"].to_bytes(1, "little")
-        ug_rand_mark += entry["max"].to_bytes(1, "little")
-        ug_rand_mark += entry["smax"].to_bytes(1, "little")
-        ug_rand_mark += entry["mmax"].to_bytes(1, "little")
-        ug_rand_mark += entry["lmax"].to_bytes(1, "little")
-        ug_rand_mark += entry["llmax"].to_bytes(1, "little")
-        for rate in entry["typerate"]:
-            ug_rand_mark += rate.to_bytes(1, "little")
+        if entry["id"] != 1 and entry["id"] != 20:
+            ug_rand_mark += entry["id"].to_bytes(1, "little")
+            encount_id = int(entry["FileName"].replace("UgEncount_", ""))
+            ug_rand_mark += encount_id.to_bytes(1, "little")
+            ug_rand_mark += entry["min"].to_bytes(1, "little")
+            ug_rand_mark += entry["max"].to_bytes(1, "little")
+            ug_rand_mark += entry["smax"].to_bytes(1, "little")
+            ug_rand_mark += entry["mmax"].to_bytes(1, "little")
+            ug_rand_mark += entry["lmax"].to_bytes(1, "little")
+            ug_rand_mark += entry["llmax"].to_bytes(1, "little")
+            for rate in entry["typerate"]:
+                ug_rand_mark += rate.to_bytes(1, "little")
 
     for entry in tamago_waza_table_json:
         tamago_waza_table += entry["no"].to_bytes(2, "little")
