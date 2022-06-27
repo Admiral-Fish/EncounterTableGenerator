@@ -277,68 +277,68 @@ def underground():
     tamago_waza_ignore_table = bytes()
     ug_pokemon_data = bytes()
 
+    ug_encount += len(ug_encount_02).to_bytes(1, "little")
     for pokemon in ug_encount_02:
-        ug_encount += b"\x02"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_03).to_bytes(1, "little")
     for pokemon in ug_encount_03:
-        ug_encount += b"\x03"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_04).to_bytes(1, "little")
     for pokemon in ug_encount_04:
-        ug_encount += b"\x04"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_05).to_bytes(1, "little")
     for pokemon in ug_encount_05:
-        ug_encount += b"\x05"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_06).to_bytes(1, "little")
     for pokemon in ug_encount_06:
-        ug_encount += b"\x06"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_07).to_bytes(1, "little")
     for pokemon in ug_encount_07:
-        ug_encount += b"\x07"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_08).to_bytes(1, "little")
     for pokemon in ug_encount_08:
-        ug_encount += b"\x08"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_09).to_bytes(1, "little")
     for pokemon in ug_encount_09:
-        ug_encount += b"\x09"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_10).to_bytes(1, "little")
     for pokemon in ug_encount_10:
-        ug_encount += b"\x0A"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_11).to_bytes(1, "little")
     for pokemon in ug_encount_11:
-        ug_encount += b"\x0B"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
 
+    ug_encount += len(ug_encount_12).to_bytes(1, "little")
     for pokemon in ug_encount_12:
-        ug_encount += b"\x0C"
         ug_encount += pokemon["monsno"].to_bytes(2, "little")
         ug_encount += pokemon["version"].to_bytes(1, "little")
         ug_encount += pokemon["zukanflag"].to_bytes(1, "little")
