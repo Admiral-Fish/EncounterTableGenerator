@@ -33,7 +33,7 @@ def encounters():
         if "Unused" in encounter["base_label"]:
             continue
 
-        encounter_data = bytearray()        
+        encounter_data = bytearray()
         encounter_data += map_number.to_bytes(1, "little")
 
         map_name = (map_number, clean_string(encounter["map"]))
