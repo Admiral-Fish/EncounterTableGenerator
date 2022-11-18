@@ -1,5 +1,7 @@
 import json
 import os
+import re
+from pathlib import Path
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -202,3 +204,98 @@ def encounters():
             f.write(f"{num},{name}")
             if i != len(map_names) - 1:
                 f.write("\n")
+
+
+def underground():
+    ENCOUNT = [str(path) for path in Path(f"{SCRIPT_FOLDER}/bdsp/").rglob("UgEncount*")]
+    POKEMON_DATA = f"{SCRIPT_FOLDER}/bdsp/UgPokemonData.json"
+    RAND_MARK = f"{SCRIPT_FOLDER}/bdsp/UgRandMark.json"
+    SPECIAL_POKEMON = f"{SCRIPT_FOLDER}/bdsp/UgSpecialPokemon.json"
+
+    encount = {}
+    for path in ENCOUNT:
+        with open(path, "r") as f:
+            name = re.search(r"(UgEncount_\d+)", path).group(0)
+            encount[name] = json.load(f)["table"]
+
+    with open(POKEMON_DATA, "r") as f:
+        pokemon_data = json.load(f)["table"]
+
+    with open(RAND_MARK, "r") as f:
+        rand_mark = json.load(f)["table"]
+
+    with open(SPECIAL_POKEMON, "r") as f:
+        special_pokemon = json.load(f)["Sheet1"]
+
+    d = bytes()
+    p = bytes()
+
+    for room_id in range(2, 20):
+        special_pokemon_room = list(filter(lambda x: x["id"] == room_id, special_pokemon))
+
+        special_pokemon_rates_d = filter(lambda x: x["version"] != 3, special_pokemon_room)
+        special_pokemon_rates_d = list(map(lambda x: (x["monsno"], x["Dspecialrate"]), special_pokemon_rates_d))
+        special_pokemon_rates_d.sort(key=lambda x: x.rate)
+
+        special_pokemon_rates_p = filter(lambda x: x["version"] != 2, special_pokemon_room)
+        special_pokemon_rates_p = list(map(lambda x: (x["monsno"], x["Pspecialrate"]), special_pokemon_rates_p))
+        special_pokemon_rates_p.sort(key=lambda x: x.rate)
+
+        d += room_id.to_bytes(1, "little")
+        d += len(special_pokemon_rates_d).to_bytes(1, "little")
+        for rate in special_pokemon_rates_d:
+            d += rate[0].to_bytes(2, "little")
+            d += rate[1].to_bytes(2, "little")
+
+        p += room_id.to_bytes(1, "little")
+        p += len(special_pokemon_rates_p).to_bytes(1, "little")
+        for rate in special_pokemon_rates_p:
+            p += rate[0].to_bytes(2, "little")
+            p += rate[1].to_bytes(2, "little")
+
+        rand_mark_room = list(filter(lambda x: x["id"] == room_id, rand_mark))[0]
+        ug_encount = encount[rand_mark_room["FileName"]]
+
+        d += rand_mark_room["min"].to_bytes(1, "little")
+        d += rand_mark_room["max"].to_bytes(1, "little")
+        for rate in rand_mark_room["typerate"]:
+            d += rate.to_bytes(1, "little")
+
+        p += rand_mark_room["min"].to_bytes(1, "little")
+        p += rand_mark_room["max"].to_bytes(1, "little")
+        for rate in rand_mark_room["typerate"]:
+            p += rate.to_bytes(1, "little")
+
+        enabled_pokemon_d = list(filter(lambda x: x["version"] != 3, ug_encount))
+        d += len(enabled_pokemon_d).to_bytes(1, "little")
+        for enabled_pokemon in enabled_pokemon_d:
+            d += enabled_pokemon["zukanflag"].to_bytes(1, "little")
+            d += enabled_pokemon["monsno"].to_bytes(2, "little")
+
+            pokemon = list(filter(lambda x: x["monsno"] == enabled_pokemon["monsno"], pokemon_data))[0]
+            d += pokemon["size"].to_bytes(1, "little")
+            for rate in pokemon["flagrate"]:
+                d += rate.to_bytes(1, "little")
+            d += pokemon["rateup"].to_bytes(1, "little")
+
+        enabled_pokemon_p = list(filter(lambda x: x["version"] != 2, ug_encount))
+        p += len(enabled_pokemon_p).to_bytes(1, "little")
+        for enabled_pokemon in enabled_pokemon_p:
+            p += enabled_pokemon["zukanflag"].to_bytes(1, "little")
+            p += enabled_pokemon["monsno"].to_bytes(2, "little")
+
+            pokemon = list(filter(lambda x: x["monsno"] == enabled_pokemon["monsno"], pokemon_data))[0]
+            p += pokemon["size"].to_bytes(1, "little")
+            for rate in pokemon["flagrate"]:
+                p += rate.to_bytes(1, "little")
+            p += pokemon["rateup"].to_bytes(1, "little")
+
+    with open("bd_underground.bin", "wb+") as f:
+        f.write(d)
+
+    with open("sp_underground.bin", "wb+") as f:
+        f.write(p)
+
+
+if __name__ == "__main__":
+    underground()
