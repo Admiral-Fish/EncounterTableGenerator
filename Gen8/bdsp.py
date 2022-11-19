@@ -235,11 +235,11 @@ def underground():
 
         special_pokemon_rates_d = filter(lambda x: x["version"] != 3, special_pokemon_room)
         special_pokemon_rates_d = list(map(lambda x: (x["monsno"], x["Dspecialrate"]), special_pokemon_rates_d))
-        special_pokemon_rates_d.sort(key=lambda x: x.rate)
+        special_pokemon_rates_d.sort(key=lambda x: x[1], reverse=True)
 
         special_pokemon_rates_p = filter(lambda x: x["version"] != 2, special_pokemon_room)
         special_pokemon_rates_p = list(map(lambda x: (x["monsno"], x["Pspecialrate"]), special_pokemon_rates_p))
-        special_pokemon_rates_p.sort(key=lambda x: x.rate)
+        special_pokemon_rates_p.sort(key=lambda x: x[1], reverse=True)
 
         d += room_id.to_bytes(1, "little")
         d += len(special_pokemon_rates_d).to_bytes(1, "little")
@@ -295,7 +295,3 @@ def underground():
 
     with open("sp_underground.bin", "wb+") as f:
         f.write(p)
-
-
-if __name__ == "__main__":
-    underground()
