@@ -1,3 +1,4 @@
+import io
 import json
 import os
 
@@ -112,9 +113,72 @@ def encounters():
     with open("white2.bin", "wb+") as f:
         f.write(w)
 
+    map_names.append((135, "Route 6 (Cave)"))
+    map_names.append((136, "Route 13 (Giant Chasm)"))
+    map_names.append((137, "Abundant Shrine (Pond)"))
+    map_names.append((138, "Route 3 (Pond)"))
+
     with open("bw2_en.txt", "w+") as f:
         map_names.sort(key=lambda x: x[0])
         for i, (num, name) in enumerate(map_names):
             f.write(f"{num},{name}")
             if i != len(map_names) - 1:
                 f.write("\n")
+
+
+def hidden_grotto():    
+    BW_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/grotto").get_elements()
+    locations = (45, 106, 126, 107, 135, 111, 121, 136, 118, 34, 130, 131, 123, 137, 9, 8, 101, 138, 100, 127)
+
+    bw = bytes()
+    for encounter, location in zip(BW_ENCOUNTERS, locations):
+        stream = io.BytesIO(encounter)
+
+        bw += location.to_bytes(1, "little")
+
+        species = [0]*12
+        max_level = [0]*12
+        min_level = [0]*12
+        gender = [0]*12
+        item = [0]*16
+        hidden_item = [0]*16
+
+        for i in range(3):
+            for j in range(4):
+                species[i + j * 3] = stream.read(2)
+
+            for j in range(4):
+                max_level[i + j * 3] = stream.read(1)
+
+            for j in range(4):
+                min_level[i + j * 3] = stream.read(1)
+
+            for j in range(4):
+                gender[i + j * 3] = stream.read(1)
+
+            stream.read(4) # Form, always 0 -> skip
+
+            stream.read(2) # Padding
+
+        for i in range(4):
+            for j in range(4):
+                item[i + j * 4] = stream.read(2)
+
+        for i in range(4):
+            for j in range(4):
+                hidden_item[i + j * 4] = stream.read(2)
+
+        for i in range(12):
+            bw += species[i]
+            bw += max_level[i]
+            bw += min_level[i]
+            bw += gender[i]
+
+        for x in item:
+            bw += x
+
+        for x in hidden_item:
+            bw += x
+
+    with open("bw2_grotto.bin", "wb+") as f:
+        f.write(bw)
