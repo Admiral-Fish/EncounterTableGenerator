@@ -1,4 +1,4 @@
-from . import emerald, rs, frlg
+from . import emerald, rs, frlg, xd
 
 def create_encounters():
     emerald.encounters()
@@ -6,3 +6,5 @@ def create_encounters():
     rs.encounters()
 
     frlg.encounters()
+
+    xd.encounters()

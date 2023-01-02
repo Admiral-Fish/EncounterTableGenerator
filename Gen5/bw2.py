@@ -160,6 +160,7 @@ def hidden_grotto():
 
             stream.read(2) # Padding
 
+        stream.seek(0x9c)
         for i in range(4):
             for j in range(4):
                 item[i + j * 4] = stream.read(2)
