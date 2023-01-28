@@ -6,6 +6,17 @@ import requests
 from .text import clean_string, load_pokemon
 
 
+UNOWN = {
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER": [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 27],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER": [2,  2,  2,  3,  3,  3,  7,  7,  7, 20, 20, 14],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER": [13, 13, 13, 13, 18, 18, 18, 18,  8,  8,  4,  4],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER": [15, 15, 11, 11,  9,  9, 17, 17, 17, 16, 16, 16],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_SCUFIB_CHAMBER": [24, 24, 19, 19,  6,  6,  6,  5,  5,  5, 10, 10],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER": [21, 21, 21, 22, 22, 22, 23, 23, 12, 12,  1,  1],
+    "MAP_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER": [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 26]
+}
+
+
 def create_encounter(encounter: dict, map_number: int, pokemon: dict):
     encounter_data = bytes()
     encounter_data += map_number.to_bytes(1, "little")
@@ -31,9 +42,13 @@ def create_encounter(encounter: dict, map_number: int, pokemon: dict):
         encounter_data += b"\x00"
 
     if land:
-        for slot in encounter["land_mons"]["mons"]:
+        for i, slot in enumerate(encounter["land_mons"]["mons"]):
             level = slot["min_level"]
             species = pokemon[slot["species"]]
+
+            if encounter["map"] in UNOWN.keys():
+                form = UNOWN[encounter["map"]][i]
+                species = (form << 11) | species
 
             encounter_data += level.to_bytes(1, "little")
             encounter_data += species.to_bytes(2, "little")

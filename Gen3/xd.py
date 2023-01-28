@@ -36,12 +36,11 @@ def encounters():
         stream.seek(0)
 
         for i in range(3):
-            encounter_data += stream.read(1)  # Min level
-            encounter_data += stream.read(1)  # Max level
-            # Specie
-            encounter_data += POKEMON[struct.unpack(">H", stream.read(2))[0]].to_bytes(2, "little")
-            stream.read(4)  # Encounter rate
-            stream.read(4)  # Snack steps
+            encounter_data += stream.read(1) # Min level
+            encounter_data += stream.read(1) # Max level
+            encounter_data += POKEMON[struct.unpack(">H", stream.read(2))[0]].to_bytes(2, "little") # Specie
+            stream.read(4) # Encounter rate
+            stream.read(4) # Snack steps
 
         xd += encounter_data
 
