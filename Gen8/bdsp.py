@@ -6,6 +6,15 @@ from pathlib import Path
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
+def get_pokemon(specie: int, form_table: list[int]) -> int:
+    if specie == 422:
+        if form_table[0] != 0: # East side form
+            specie = (1 << 11) | specie
+    elif specie == 423:
+        if form_table[1] != 0: # East side form
+            specie = (1 << 11) | specie
+    return specie
+
 
 def encounters(text: bool):
     D_ENCOUNTERS = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_d.json"
@@ -47,7 +56,7 @@ def encounters(text: bool):
             continue
 
         # Solaceon Ruins all share the same table
-        if map_number in (30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46):
+        if map_number in (31, 33, 35, 36, 37, 38, 39, 44, 45, 46):
             continue
 
         zone_id = encounter["zoneID"]
@@ -64,6 +73,8 @@ def encounters(text: bool):
         if location_name in location_modifiers and str(map_number) in location_modifiers[location_name]:
             location_name = location_modifiers[location_name][str(map_number)]
 
+        form_table = encounter["FormProb"]
+
         map_name = (map_number, location_name)
         map_names.append(map_name)
 
@@ -73,26 +84,27 @@ def encounters(text: bool):
         d += encounter["encRate_gr"].to_bytes(1, "little")
         for entry in encounter["ground_mons"]:
             d += entry["maxlv"].to_bytes(1, "little")
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Swarm modifiers (same level)
         for entry in encounter["tairyo"]:
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Day modifiers (same level)
         for entry in encounter["day"]:
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Night modifiers (same level)
         for entry in encounter["night"]:
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Radar modifiers (same level)
         for entry in encounter["swayGrass"]:
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
-        # FormProb, Nazo, Annoon Table
-        # Literally no clue what these are used for, skip for now
+        # Nazo, seems unused
+
+        # Annoon Table
 
         # Skipping dual slot encounters, the switch doesn't have a GBA reader
 
@@ -101,30 +113,46 @@ def encounters(text: bool):
         for entry in encounter["water_mons"]:
             d += entry["maxlv"].to_bytes(1, "little")
             d += entry["minlv"].to_bytes(1, "little")
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Old rod
         d += encounter["encRate_turi_boro"].to_bytes(1, "little")
         for entry in encounter["boro_mons"]:
             d += entry["maxlv"].to_bytes(1, "little")
             d += entry["minlv"].to_bytes(1, "little")
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Good rod
         d += encounter["encRate_turi_ii"].to_bytes(1, "little")
         for entry in encounter["ii_mons"]:
             d += entry["maxlv"].to_bytes(1, "little")
             d += entry["minlv"].to_bytes(1, "little")
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Super rod
         d += encounter["encRate_sugoi"].to_bytes(1, "little")
         for entry in encounter["sugoi_mons"]:
             d += entry["maxlv"].to_bytes(1, "little")
             d += entry["minlv"].to_bytes(1, "little")
-            d += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
     for map_number, encounter in enumerate(p_encounters):
+        # Mt Coronet Summit covers two maps, with the same tables
+        if map_number == 14:
+            continue
+
+        # Old Chateau all share the same table
+        if map_number in (126, 127, 128, 129, 130, 131, 132, 133):
+            continue
+
+        # Turnback Cave has duplicate entries based on pillars encountered
+        if map_number in (64, 65, 66, 67, 68, 70, 71, 72, 73, 74, 76, 77, 78, 79, 80):
+            continue
+
+        # Solaceon Ruins all share the same table
+        if map_number in (31, 33, 35, 36, 37, 38, 39, 44, 45, 46):
+            continue
+
         zone_id = encounter["zoneID"]
 
         zone_data = next((zone for zone in map_info if zone["ZoneID"] == zone_id), None)
@@ -142,26 +170,27 @@ def encounters(text: bool):
         p += encounter["encRate_gr"].to_bytes(1, "little")
         for entry in encounter["ground_mons"]:
             p += entry["maxlv"].to_bytes(1, "little")
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Swarm modifiers (same level)
         for entry in encounter["tairyo"]:
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Day modifiers (same level)
         for entry in encounter["day"]:
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Night modifiers (same level)
         for entry in encounter["night"]:
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Radar modifiers (same level)
         for entry in encounter["swayGrass"]:
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
-        # FormProb, Nazo, Annoon Table
-        # Literally no clue what these are used for, skip for now
+        # Nazo, seems unused
+
+        # Annoon Table
 
         # Skipping dual slot encounters, the switch doesn't have a GBA reader
 
@@ -170,28 +199,28 @@ def encounters(text: bool):
         for entry in encounter["water_mons"]:
             p += entry["maxlv"].to_bytes(1, "little")
             p += entry["minlv"].to_bytes(1, "little")
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Old rod
         p += encounter["encRate_turi_boro"].to_bytes(1, "little")
         for entry in encounter["boro_mons"]:
             p += entry["maxlv"].to_bytes(1, "little")
             p += entry["minlv"].to_bytes(1, "little")
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Good rod
         p += encounter["encRate_turi_ii"].to_bytes(1, "little")
         for entry in encounter["ii_mons"]:
             p += entry["maxlv"].to_bytes(1, "little")
             p += entry["minlv"].to_bytes(1, "little")
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
         # Super rod
         p += encounter["encRate_sugoi"].to_bytes(1, "little")
         for entry in encounter["sugoi_mons"]:
             p += entry["maxlv"].to_bytes(1, "little")
             p += entry["minlv"].to_bytes(1, "little")
-            p += entry["monsNo"].to_bytes(2, "little")
+            d += get_pokemon(entry["monsNo"], form_table).to_bytes(2, "little")
 
     with open("bd.bin", "wb+") as f:
         f.write(d)

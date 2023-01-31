@@ -91,6 +91,15 @@
             "57": "Stark Mountain Interior 1",
             "58": "Stark Mountain Interior 2"
         },
+        "Solaceon Ruins": {
+            "29": "Solaceon Ruins 2F",
+            "32": "Solaceon Ruins B1F (4 Stairs)",
+            "34": "Solaceon Ruins B2F (4 Stairs)",
+            "40": "Solaceon Ruins B3F (3 Stairs)",
+            "41": "Solaceon Ruins B3F (4 Stairs)",
+            "42": "Solaceon Ruins B4F (4 Stairs)",
+            "43": "Solaceon Ruins B4F (Chamber)"
+        },
         "Turnback Cave": {
             "63": "Turnback Cave Entrance",
             "69": "Turnback 1st Pillar",
