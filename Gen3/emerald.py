@@ -6,7 +6,7 @@ import requests
 from .text import clean_string, load_pokemon
 
 
-def encounters():
+def encounters(text: bool):
     DATA = "https://raw.githubusercontent.com/pret/pokeemerald/master/src/data/wild_encounters.json"
     MAPS = "https://raw.githubusercontent.com/pret/pokeemerald/master/include/constants/map_groups.h"
 
@@ -111,9 +111,10 @@ def encounters():
     with open("emerald.bin", "wb+") as f:
         f.write(emerald)
 
-    with open("e_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        with open("e_en.txt", "w+") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")

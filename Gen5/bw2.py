@@ -8,7 +8,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters():
+def encounters(text: bool):
     B_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/b2_encount").get_elements()
     W_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/w2_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/bw2/mapheaders.bin"
@@ -118,12 +118,13 @@ def encounters():
     map_names.append((137, "Abundant Shrine (Pond)"))
     map_names.append((138, "Route 3 (Pond)"))
 
-    with open("bw2_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        with open("bw2_en.txt", "w+") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")
 
 
 def hidden_grotto():    

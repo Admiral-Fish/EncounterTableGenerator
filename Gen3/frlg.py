@@ -94,7 +94,7 @@ def create_encounter(encounter: dict, map_number: int, pokemon: dict):
     return encounter_data
 
 
-def encounters():
+def encounters(text: bool):
     DATA = "https://raw.githubusercontent.com/pret/pokefirered/master/src/data/wild_encounters.json"
     MAPS = "https://raw.githubusercontent.com/pret/pokefirered/master/include/constants/map_groups.h"
 
@@ -138,9 +138,10 @@ def encounters():
     with open("leafgreen.bin", "wb+") as f:
         f.write(lg)
 
-    with open("frlg_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        with open("frlg_en.txt", "w+") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")

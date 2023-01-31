@@ -19,7 +19,7 @@ POKEMON = {
 }
 
 
-def encounters():
+def encounters(text: bool):
     XD_ENCOUNTERS = f"{SCRIPT_FOLDER}/xd/pokespot.bin"
 
     with open(XD_ENCOUNTERS, "rb") as f:
@@ -47,10 +47,11 @@ def encounters():
     with open("xd.bin", "wb+") as f:
         f.write(xd)
 
-    map_names = [(0, "Rock Poke Spot"), (1, "Oasis Poke Spot"), (2, "Cave Poke Spot")]
-    with open("gales_en.txt", "w+") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        map_names = [(0, "Rock Poke Spot"), (1, "Oasis Poke Spot"), (2, "Cave Poke Spot")]
+        with open("gales_en.txt", "w+") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")

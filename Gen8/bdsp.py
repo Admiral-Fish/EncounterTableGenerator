@@ -6,7 +6,8 @@ from pathlib import Path
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters():
+
+def encounters(text: bool):
     D_ENCOUNTERS = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_d.json"
     P_ENCOUNTERS = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_p.json"
     MAP_INFO = f"{SCRIPT_FOLDER}/bdsp/MapInfo.json"
@@ -198,12 +199,13 @@ def encounters():
     with open("sp.bin", "wb+") as f:
         f.write(p)
 
-    with open("bdsp_en.txt", "w+", encoding="utf-8") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        with open("bdsp_en.txt", "w+", encoding="utf-8") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")
 
 
 def underground():

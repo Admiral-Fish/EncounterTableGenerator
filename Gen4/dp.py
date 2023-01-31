@@ -8,7 +8,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters():
+def encounters(text: bool):
     D_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/dp/d_enc_data.narc").get_elements()
     P_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/dp/p_enc_data.narc").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/dp/mapheaders.bin"
@@ -68,9 +68,10 @@ def encounters():
     with open("pearl.bin", "wb+") as f:
         f.write(p)
 
-    with open("dppt_en.txt", "w+", encoding="utf-8") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+    if text:
+        with open("dppt_en.txt", "w+", encoding="utf-8") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")

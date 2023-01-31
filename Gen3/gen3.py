@@ -1,10 +1,10 @@
 from . import emerald, rs, frlg, xd
 
-def create_encounters():
-    emerald.encounters()
+def create_encounters(text: bool):
+    emerald.encounters(text)
 
-    rs.encounters()
+    rs.encounters(text)
 
-    frlg.encounters()
+    frlg.encounters(text)
 
-    xd.encounters()
+    xd.encounters(text)

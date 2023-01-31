@@ -10,7 +10,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters():
+def encounters(text: bool):
     HG_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/hgss/hg_encount").get_elements()
     SS_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/hgss/ss_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/hgss/mapheaders.bin"
@@ -91,12 +91,14 @@ def encounters():
     map_names.append((158, "Safari Zone (Wasteland)"))
     map_names.append((159, "Safari Zone (Mountain)"))
     map_names.append((160, "Safari Zone (Desert)"))
-    with open("hgss_en.txt", "w+", encoding="utf-8") as f:
-        map_names.sort(key=lambda x: x[0])
-        for i, (num, name) in enumerate(map_names):
-            f.write(f"{num},{name}")
-            if i != len(map_names) - 1:
-                f.write("\n")
+
+    if text:
+        with open("hgss_en.txt", "w+", encoding="utf-8") as f:
+            map_names.sort(key=lambda x: x[0])
+            for i, (num, name) in enumerate(map_names):
+                f.write(f"{num},{name}")
+                if i != len(map_names) - 1:
+                    f.write("\n")
 
 
 def bug():
