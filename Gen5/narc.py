@@ -1,5 +1,7 @@
-from io import BufferedReader
 import struct
+from io import BufferedReader
+from typing import List
+
 
 class Narc:
     def __init__(self, path: str):
@@ -34,5 +36,5 @@ class Narc:
             file.seek(self.fimg_offset + start_offsets[i] + 8)
             self.elements.append(file.read(end_offsets[i] - start_offsets[i]))
 
-    def get_elements(self) -> list:
+    def get_elements(self) -> List[bytes]:
         return self.elements
