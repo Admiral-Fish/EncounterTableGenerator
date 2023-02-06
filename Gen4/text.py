@@ -36,25 +36,23 @@ def read_map_names(path):
         for _ in range(current_size[i]):
             char = struct.unpack("<H", file.read(2))[0] ^ key1
 
-            match char:
-                case 0xe000:
-                    text += "\n"
-                case 0x25bc:
-                    text += "\r"
-                case 0x25bd:
-                    text += "\f"
-                case 0xfffe:
-                    text += "\v"
-                    special_char_on = True
-                case 0xffff:
-                    text += ""
-                case _:
-                    if special_char_on:
-                        text += ":4X".format(char)
-                        special_char_on = False
-                    else:
-                        character = characters[str(char)]
-                        text += character                        
+            if char == 0xe000:
+                text += "\n"
+            elif 0x25bc:
+                text += "\r"
+            elif 0x25bd:
+                text += "\f"
+            elif 0xfffe:
+                text += "\v"
+                special_char_on = True
+            elif 0xffff:
+                text += ""
+            else:
+                if special_char_on:
+                    text += ":4X".format(char)
+                    special_char_on = False
+                else:
+                    text += characters[str(char)]
 
             key1 += 0x493d
             key1 &= 0xffff
