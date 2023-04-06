@@ -2,6 +2,7 @@ import json
 import os
 
 from .narc import Narc
+from .pack import pack_encounter_gen5
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -27,6 +28,10 @@ def encounters(text: bool):
     map_names = []
     for map_header in map_headers:
         encounter_id = map_header[20] | (map_header[21] << 8)
+        
+        # Invalid encounter area
+        if encounter_id == 65535:
+            continue 
 
         # The lowest part in Relic Castle all share the same tables
         if encounter_id in (16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 32):
@@ -44,22 +49,21 @@ def encounters(text: bool):
         if encounter_id in (10, 38, 39):
             continue
 
-        if encounter_id != 65535:
-            location_number = map_header[26]
-            location_name = MAP_NAMES[location_number]
-            if location_name in location_modifiers and str(encounter_id) in location_modifiers[location_name]:
-                location_name = location_modifiers[location_name][str(encounter_id)]
+        location_number = map_header[26]
+        location_name = MAP_NAMES[location_number]
+        if location_name in location_modifiers and str(encounter_id) in location_modifiers[location_name]:
+            location_name = location_modifiers[location_name][str(encounter_id)]
 
-            map_name = (encounter_id, location_name)
-            map_names.append(map_name)
+        map_name = (encounter_id, location_name)
+        map_names.append(map_name)
 
-            # Black
-            b += location_number.to_bytes(1, "little")
-            b += B_ENCOUNTERS[encounter_id]
+        # Black
+        b += location_number.to_bytes(1, "little")
+        b += pack_encounter_gen5(B_ENCOUNTERS[encounter_id])
 
-            # White
-            w += location_number.to_bytes(1, "little")
-            w += W_ENCOUNTERS[encounter_id]
+        # White
+        w += location_number.to_bytes(1, "little")
+        w += pack_encounter_gen5(W_ENCOUNTERS[encounter_id])
 
     with open("black.bin", "wb+") as f:
         f.write(b)

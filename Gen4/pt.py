@@ -1,6 +1,6 @@
 import os
 
-from .compress import compress_encounter_dppt
+from .pack import pack_encounter_dppt
 from .narc import Narc
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -38,7 +38,7 @@ def encounters():
         if encounter_id != 65535:
             # Platinum
             pt += encounter_id.to_bytes(1, "little")
-            pt += compress_encounter_dppt(PT_ENCOUNTERS[encounter_id])
+            pt += pack_encounter_dppt(PT_ENCOUNTERS[encounter_id])
 
     with open("platinum.bin", "wb+") as f:
         f.write(pt)
