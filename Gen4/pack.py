@@ -1,218 +1,231 @@
 import io
 import struct
+from ctypes import Structure, c_uint8, c_uint16, c_uint32
 
 
 def pack_encounter_dppt(encounter: bytes):
-    header = bytes()
-    body = bytes()
-    stream = io.BytesIO(encounter)
-    stream.seek(0)
+    class DynamicSlot(Structure):
+        _fields_ = [
+            ("max_level", c_uint8),
+            ("min_level", c_uint8),
+            ("specie", c_uint32)
+        ]
+
+    class StaticSlot(Structure):
+        _fields_ = [
+            ("level", c_uint8),
+            ("specie", c_uint32)
+        ]
+
+    class Encounter(Structure):
+        _fields_ = [
+            ("grassRate", c_uint32),
+            ("grass", StaticSlot * 12),
+            ("swarm", c_uint32 * 2),
+            ("noon", c_uint32 * 2),
+            ("night", c_uint32 * 2),
+            ("radar", c_uint32 * 4),
+            ("forms", c_uint32 * 5),
+            ("anoon", c_uint32),
+            ("ruby", c_uint32 * 2),
+            ("sapphire", c_uint32 * 2),
+            ("emerald", c_uint32 * 2),
+            ("firered", c_uint32 * 2),
+            ("leafgreen", c_uint32 * 2),
+            ("surfRate", c_uint32),
+            ("surf", DynamicSlot * 5),
+            ("rockRate", c_uint32),
+            ("rock", DynamicSlot * 5),
+            ("oldRate", c_uint32),
+            ("old", DynamicSlot * 5),
+            ("goodRate", c_uint32),
+            ("good", DynamicSlot * 5),
+            ("superRate", c_uint32),
+            ("super", DynamicSlot * 5)
+        ]
+
+    entry = Encounter.from_buffer_copy(encounter)
+    
+    data =  entry.grassRate.to_bytes(1, "little")
+    data += entry.surfRate.to_bytes(1, "little")
+    data += entry.oldRate.to_bytes(1, "little")
+    data += entry.goodRate.to_bytes(1, "little")
+    data += entry.superRate.to_bytes(1, "little")
 
     # Grass
-    header += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
-    for _ in range(12):
-        level = struct.unpack("<I", stream.read(4))[0]
-        specie = struct.unpack("<I", stream.read(4))[0]
-
-        body += specie.to_bytes(2, "little")
-        body += level.to_bytes(1, "little")
-        body += b"\x00" # 1 byte padding
+    for slot in entry.grass:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.level.to_bytes(1, "little")
+        data += b"\x00" # 1 byte padding
 
     # Swarm
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.swarm:
+        data += specie.to_bytes(2, "little")
 
     # Noon
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.noon:
+        data += specie.to_bytes(2, "little")
 
     # Night
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.night:
+        data += specie.to_bytes(2, "little")
 
     # Radar
-    for _ in range(4):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.radar:
+        data += specie.to_bytes(2, "little")
 
     # Forms (impacts Shellos/Gastrodon, skipping)
-    for _ in range(5):
-        stream.read(4)
 
     # AnnoonTable (used for unown)
-    stream.read(4)
 
     # Ruby
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.ruby:
+        data += specie.to_bytes(2, "little")
 
     # Sapphire
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.sapphire:
+        data += specie.to_bytes(2, "little")
 
     # Emerald
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.emerald:
+        data += specie.to_bytes(2, "little")
 
     # Fire Red
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.firered:
+        data += specie.to_bytes(2, "little")
 
     # Leaf Green
-    for _ in range(2):
-        body += struct.unpack("<I", stream.read(4))[0].to_bytes(2, "little")
+    for specie in entry.leafgreen:
+        data += specie.to_bytes(2, "little")
 
     # Surf
-    header += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
-    for _ in range(5):
-        max_level = struct.unpack("<B", stream.read(1))[0]
-        min_level = struct.unpack("<B", stream.read(1))[0]
-        stream.read(2)
-        specie = struct.unpack("<I", stream.read(4))[0]
-
-        body += specie.to_bytes(2, "little")
-        body += max_level.to_bytes(1, "little")
-        body += min_level.to_bytes(1, "little")
+    for slot in entry.surf:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Rock smash (no actual rock smash encounters in DPPt)
-    stream.read(4)
-    for _ in range(5):
-        stream.read(8)
 
     # Old rod
-    header += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
-    for _ in range(5):
-        max_level = struct.unpack("<B", stream.read(1))[0]
-        min_level = struct.unpack("<B", stream.read(1))[0]
-        stream.read(2)
-        specie = struct.unpack("<I", stream.read(4))[0]
-
-        body += specie.to_bytes(2, "little")
-        body += max_level.to_bytes(1, "little")
-        body += min_level.to_bytes(1, "little")
+    for slot in entry.old:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Good rod
-    header += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
-    for _ in range(5):
-        max_level = struct.unpack("<B", stream.read(1))[0]
-        min_level = struct.unpack("<B", stream.read(1))[0]
-        stream.read(2)
-        specie = struct.unpack("<I", stream.read(4))[0]
-
-        body += specie.to_bytes(2, "little")
-        body += max_level.to_bytes(1, "little")
-        body += min_level.to_bytes(1, "little")
+    for slot in entry.good:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Super rod
-    header += struct.unpack("<I", stream.read(4))[0].to_bytes(1, "little")
-    for _ in range(5):
-        max_level = struct.unpack("<B", stream.read(1))[0]
-        min_level = struct.unpack("<B", stream.read(1))[0]
-        stream.read(2)
-        specie = struct.unpack("<I", stream.read(4))[0]
+    for slot in entry.super:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
-        body += specie.to_bytes(2, "little")
-        body += max_level.to_bytes(1, "little")
-        body += min_level.to_bytes(1, "little")
-
-    return header + body
+    return data
 
 
 def pack_encounter_hgss(encounter: bytes):
-    stream = io.BytesIO(encounter)
-    stream.seek(0)
+    class DynamicSlot(Structure):
+        _fields_ = [
+            ("min_level", c_uint8),
+            ("max_level", c_uint8),
+            ("specie", c_uint16)
+        ]
 
-    data = stream.read(1) # Grass
-    data += stream.read(1) # Surf
-    data += stream.read(1) # Rock
-    data += stream.read(1) # Old Rod
-    data += stream.read(1) # Good Rod
-    data += stream.read(1) # Super Rod
-    
-    stream.read(2)
+    class EncounterGrass(Structure):
+        _fields_ = [
+            ("level", c_uint8 * 12),
+            ("morning", c_uint16 * 12),
+            ("day", c_uint16 * 12),
+            ("night", c_uint16 * 12)
+        ]
+
+    class Encounter(Structure):
+        _fields_ = [
+            ("grassRate", c_uint8),
+            ("surfRate", c_uint8),
+            ("rockRate", c_uint8),
+            ("oldRate", c_uint8),
+            ("goodRate", c_uint8),
+            ("superRate", c_uint8),
+            ("pad", c_uint16),
+            ("grass", EncounterGrass),
+            ("hoennSound", c_uint16 * 2),
+            ("sinnohSound", c_uint16 * 2),
+            ("surf", DynamicSlot * 5),
+            ("rock", DynamicSlot * 2),
+            ("old", DynamicSlot * 5),
+            ("good", DynamicSlot * 5),
+            ("super", DynamicSlot * 5),
+            ("swarm", c_uint16 * 4)
+        ]
+
+    entry = Encounter.from_buffer_copy(encounter)
+
+    data =  entry.grassRate.to_bytes(1, "little")
+    data += entry.surfRate.to_bytes(1, "little")
+    data += entry.rockRate.to_bytes(1, "little")
+    data += entry.oldRate.to_bytes(1, "little")
+    data += entry.goodRate.to_bytes(1, "little")
+    data += entry.superRate.to_bytes(1, "little")
     data += b"\x00" # 1 byte padding
 
     # Grass
-    levels = []
+    for specie in entry.grass.morning:
+        data += specie.to_bytes(2, "little")
 
-    # Levels
-    for _ in range(12):
-        levels.append(stream.read(1))
+    for specie in entry.grass.day:
+        data += specie.to_bytes(2, "little")
 
-    # Morning
-    for _ in range(12):
-        data += stream.read(2)
+    for specie in entry.grass.night:
+        data += specie.to_bytes(2, "little")
 
-    # Day
-    for _ in range(12):
-        data += stream.read(2)
-
-    # Night
-    for _ in range(12):
-        data += stream.read(2)
-
-    for level in levels:
-        data += level
+    for level in entry.grass.level:
+        data += level.to_bytes(1, "little")
 
     # Hoenn Radio
-    for _ in range(2):
-        data += stream.read(2)
+    for specie in entry.hoennSound:
+        data += specie.to_bytes(2, "little")
 
     # Sinnoh Radio
-    for _ in range(2):
-        data += stream.read(2)
+    for specie in entry.sinnohSound:
+        data += specie.to_bytes(2, "little")
 
     # Surf
-    for _ in range(5):
-        min_level = stream.read(1)
-        max_level = stream.read(1)
-        specie = stream.read(2)
-
-        data += specie
-        data += max_level
-        data += min_level
+    for slot in entry.surf:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Rock Smash
-    for _ in range(5):
-        min_level = stream.read(1)
-        max_level = stream.read(1)
-        specie = stream.read(2)
-
-        data += specie
-        data += max_level
-        data += min_level
+    for slot in entry.rock:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Old Rod
-    for _ in range(5):
-        min_level = stream.read(1)
-        max_level = stream.read(1)
-        specie = stream.read(2)
-
-        data += specie
-        data += max_level
-        data += min_level
+    for slot in entry.old:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Good Rod
-    for _ in range(5):
-        min_level = stream.read(1)
-        max_level = stream.read(1)
-        specie = stream.read(2)
-
-        data += specie
-        data += max_level
-        data += min_level
+    for slot in entry.good:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Super Rod
-    for _ in range(5):
-        min_level = stream.read(1)
-        max_level = stream.read(1)
-        specie = stream.read(2)
-
-        data += specie
-        data += max_level
-        data += min_level
+    for slot in entry.super:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
 
     # Swarm
-    for _ in range(4):
-        data += stream.read(2)
+    for specie in entry.swarm:
+        data += specie.to_bytes(2, "little")
 
     return data

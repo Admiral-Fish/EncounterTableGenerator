@@ -1,7 +1,7 @@
 import os
 
-from .pack import pack_encounter_dppt
 from .narc import Narc
+from .pack import pack_encounter_dppt
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 

@@ -1,5 +1,5 @@
-import os
 import json
+import os
 import struct
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -38,14 +38,14 @@ def read_map_names(path):
 
             if char == 0xe000:
                 text += "\n"
-            elif 0x25bc:
+            elif char == 0x25bc:
                 text += "\r"
-            elif 0x25bd:
+            elif char == 0x25bd:
                 text += "\f"
-            elif 0xfffe:
+            elif char == 0xfffe:
                 text += "\v"
                 special_char_on = True
-            elif 0xffff:
+            elif char == 0xffff:
                 text += ""
             else:
                 if special_char_on:

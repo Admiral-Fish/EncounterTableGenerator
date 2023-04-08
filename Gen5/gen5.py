@@ -1,5 +1,6 @@
 from . import bw, bw2
 
+
 def create_encounters(text: bool):
     bw.encounters(text)
 

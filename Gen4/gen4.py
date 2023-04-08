@@ -1,4 +1,5 @@
-from . import hgss, dp, pt
+from . import dp, hgss, pt
+
 
 def create_encounters(text: bool):
     hgss.encounters(text)

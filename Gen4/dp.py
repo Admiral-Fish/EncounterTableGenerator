@@ -1,8 +1,8 @@
 import json
 import os
 
-from .pack import pack_encounter_dppt
 from .narc import Narc
+from .pack import pack_encounter_dppt
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))

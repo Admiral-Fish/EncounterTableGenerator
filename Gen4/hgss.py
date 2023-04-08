@@ -3,8 +3,8 @@ import json
 import os
 import struct
 
-from .pack import pack_encounter_hgss
 from .narc import Narc
+from .pack import pack_encounter_hgss
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -229,11 +229,11 @@ def safari():
 
         stream = io.BytesIO(safari_encounter)
 
-        tall_grass_encounters = int.from_bytes(stream.read(1), byteorder="big") # 10
-        surfing_encounters = int.from_bytes(stream.read(1), byteorder="big") # 3
-        old_rod_encounters = int.from_bytes(stream.read(1), byteorder="big") # 2
-        good_rod_encounters = int.from_bytes(stream.read(1), byteorder="big") # 2
-        super_rod_encounters = int.from_bytes(stream.read(1), byteorder="big") # 2
+        tall_grass_encounters = int.from_bytes(stream.read(1), "little") # 10
+        surfing_encounters = int.from_bytes(stream.read(1), "little") # 3
+        old_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
+        good_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
+        super_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
         stream.read(3) # Pad
 
         encounters = (

@@ -5,7 +5,6 @@ import requests
 
 from .text import clean_string, load_pokemon
 
-
 UNOWN = {
     "MAP_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER": [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 27],
     "MAP_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER": [2,  2,  2,  3,  3,  3,  7,  7,  7, 20, 20, 14],
