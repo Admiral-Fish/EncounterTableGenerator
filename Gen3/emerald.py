@@ -3,6 +3,7 @@ import re
 
 import requests
 
+from .pack import pack_encounter_gen3
 from .text import clean_string, load_pokemon
 
 
@@ -33,68 +34,12 @@ def encounters(text: bool):
         if "Unused" in encounter["base_label"]:
             continue
 
-        encounter_data = bytes()
-        encounter_data += map_number.to_bytes(1, "little")
-
         map_name = (map_number, clean_string(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
 
-        if (land := "land_mons" in encounter):
-            encounter_data += encounter["land_mons"]["encounter_rate"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00"
-
-        if (water := "water_mons" in encounter):
-            encounter_data += encounter["water_mons"]["encounter_rate"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00"
-
-        if (rock := "rock_smash_mons" in encounter):
-            encounter_data += encounter["rock_smash_mons"]["encounter_rate"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00"
-
-        if (fish := "fishing_mons" in encounter):
-            encounter_data += encounter["fishing_mons"]["encounter_rate"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00"
-
-        encounter_data += b"\x00" # 1 byte padding
-
-        if land:
-            for slot in encounter["land_mons"]["mons"]:
-                encounter_data += pokemon[slot["species"]].to_bytes(2, "little")
-                encounter_data += slot["min_level"].to_bytes(1, "little")
-                encounter_data += b"\x00" # 1 byte padding
-        else:
-            encounter_data += b"\x00" * (12 * 4)
-
-        if water:
-            for slot in encounter["water_mons"]["mons"]:
-                encounter_data += pokemon[slot["species"]].to_bytes(2, "little")
-                encounter_data += slot["max_level"].to_bytes(1, "little")
-                encounter_data += slot["min_level"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00" * (5 * 4)
-
-        if rock:
-            for slot in encounter["rock_smash_mons"]["mons"]:
-                encounter_data += pokemon[slot["species"]].to_bytes(2, "little")
-                encounter_data += slot["max_level"].to_bytes(1, "little")
-                encounter_data += slot["min_level"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00" * (5 * 4)
-
-        if fish:
-            for slot in encounter["fishing_mons"]["mons"]:
-                encounter_data += pokemon[slot["species"]].to_bytes(2, "little")
-                encounter_data += slot["max_level"].to_bytes(1, "little")
-                encounter_data += slot["min_level"].to_bytes(1, "little")
-        else:
-            encounter_data += b"\x00" * (10 * 4)
-
-        emerald += encounter_data
+        emerald += map_number.to_bytes()
+        pack_encounter_gen3(encounter, pokemon)
 
     with open("emerald.bin", "wb+") as f:
         f.write(emerald)

@@ -45,8 +45,8 @@ def pack_encounter_dppt(encounter: bytes):
         ]
 
     entry = Encounter.from_buffer_copy(encounter)
-    
-    data =  entry.grassRate.to_bytes(1, "little")
+
+    data = entry.grassRate.to_bytes(1, "little")
     data += entry.surfRate.to_bytes(1, "little")
     data += entry.oldRate.to_bytes(1, "little")
     data += entry.goodRate.to_bytes(1, "little")
@@ -56,7 +56,7 @@ def pack_encounter_dppt(encounter: bytes):
     for slot in entry.grass:
         data += slot.specie.to_bytes(2, "little")
         data += slot.level.to_bytes(1, "little")
-        data += b"\x00" # 1 byte padding
+        data += b"\x00"  # 1 byte padding
 
     # Swarm
     for specie in entry.swarm:
@@ -165,13 +165,13 @@ def pack_encounter_hgss(encounter: bytes):
 
     entry = Encounter.from_buffer_copy(encounter)
 
-    data =  entry.grassRate.to_bytes(1, "little")
+    data = entry.grassRate.to_bytes(1, "little")
     data += entry.surfRate.to_bytes(1, "little")
     data += entry.rockRate.to_bytes(1, "little")
     data += entry.oldRate.to_bytes(1, "little")
     data += entry.goodRate.to_bytes(1, "little")
     data += entry.superRate.to_bytes(1, "little")
-    data += b"\x00" # 1 byte padding
+    data += b"\x00"  # 1 byte padding
 
     # Grass
     for specie in entry.grass.morning:
@@ -227,5 +227,82 @@ def pack_encounter_hgss(encounter: bytes):
     # Swarm
     for specie in entry.swarm:
         data += specie.to_bytes(2, "little")
+
+    return data
+
+def pack_encounter_hgss_bug(encounter: bytes):
+    class Slot(Structure):
+        _fields_ = [
+            ("specie", c_uint16),
+            ("min_level", c_uint8),
+            ("max_level", c_uint8),
+            ("rate", c_uint8),
+            ("score", c_uint8),
+            ("dummy", c_uint8 * 2)
+        ]
+
+    class EncounterArea(Structure):
+        _fields_ = [
+            ("slots", Slot * 10)
+        ]
+
+    class Encounter(Structure):
+        _fields_ = [
+            ("areas", EncounterArea * 4)
+        ]
+
+    data = bytes()
+    LOCATION_START = 142
+    entry = Encounter.from_buffer_copy(encounter)
+
+    for i, area in enumerate(entry.areas):
+        data += (LOCATION_START + i).to_bytes(1, "little")
+        data += b"\x00" # 1 byte padding
+        for slot in area.slots:
+            data += slot.specie.to_bytes(2, "little")
+            data += slot.max_level.to_bytes(1, "little")
+            data += slot.min_level.to_bytes(1, "little")
+
+    return data
+
+def pack_encounter_hgss_headbutt(encounter: bytes):
+    class Slot(Structure):
+        _fields_ = [
+            ("specie", c_uint16),
+            ("min_level", c_uint8),
+            ("max_level", c_uint8)
+        ]
+
+    class Tree(Structure):
+        _fields_ = [
+            ("x", c_uint16),
+            ("y", c_uint16)
+        ]
+
+    class Encounter(Structure):
+        _fields_ = [
+            ("tree_count", c_uint16),
+            ("special_tree_count", c_uint16),
+            ("tree", Slot * 12),
+            ("special_tree", Slot * 6),
+            ("tree_coord", Tree * 0)
+        ]
+
+    entry = Encounter.from_buffer_copy(encounter)
+
+    data = b"\x01" if entry.special_tree_count != 0 else b"\x00"
+
+    for slot in entry.tree:
+        data += slot.specie.to_bytes(2, "little")
+        data += slot.max_level.to_bytes(1, "little")
+        data += slot.min_level.to_bytes(1, "little")
+
+    if entry.special_tree_count != 0:
+        for slot in entry.special_tree:
+            data += slot.specie.to_bytes(2, "little")
+            data += slot.max_level.to_bytes(1, "little")
+            data += slot.min_level.to_bytes(1, "little")
+    else:
+        data = b"\x00" * (6 * 4)
 
     return data

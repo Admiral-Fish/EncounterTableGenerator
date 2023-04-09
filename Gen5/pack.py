@@ -1,6 +1,6 @@
 import io
-import struct
 from ctypes import Structure, c_uint8, c_uint16
+
 
 class DynamicSlot(Structure):
     _fields_ = [
@@ -9,11 +9,13 @@ class DynamicSlot(Structure):
         ("max_level", c_uint8)
     ]
 
+
 class StaticSlot(Structure):
     _fields_ = [
         ("specie", c_uint16),
         ("level", c_uint8)
     ]
+
 
 class EncounterSeason(Structure):
     _fields_ = [
@@ -33,10 +35,12 @@ class EncounterSeason(Structure):
         ("fishSpecial", DynamicSlot * 5),
     ]
 
+
 class Encounter(Structure):
     _fields_ = [
         ("seasons", EncounterSeason * 1)
     ]
+
 
 class EncounterSeasons(Structure):
     _fields_ = [
@@ -68,19 +72,19 @@ def pack_encounter_gen5(encounter: bytes):
         for slot in season.grass:
             data += slot.specie.to_bytes(2, "little")
             data += slot.level.to_bytes(1, "little")
-            data += b"\x00" # 1 byte padding
+            data += b"\x00"  # 1 byte padding
 
         # Grass Double
         for slot in season.grassDouble:
             data += slot.specie.to_bytes(2, "little")
             data += slot.level.to_bytes(1, "little")
-            data += b"\x00" # 1 byte padding
+            data += b"\x00"  # 1 byte padding
 
         # Grass Special
         for slot in season.grassSpecial:
             data += slot.specie.to_bytes(2, "little")
             data += slot.level.to_bytes(1, "little")
-            data += b"\x00" # 1 byte padding
+            data += b"\x00"  # 1 byte padding
 
         # Surf
         for slot in season.surf:

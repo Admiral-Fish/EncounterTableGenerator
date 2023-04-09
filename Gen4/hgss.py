@@ -4,7 +4,7 @@ import os
 import struct
 
 from .narc import Narc
-from .pack import pack_encounter_hgss
+from .pack import pack_encounter_hgss, pack_encounter_hgss_bug, pack_encounter_hgss_headbutt
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -105,30 +105,17 @@ def bug():
     BUG_ENCOUNT = f"{SCRIPT_FOLDER}/hgss/mushi_encount.bin"
 
     with open(BUG_ENCOUNT, "rb") as f:
-        stream = io.BytesIO(f.read())
+        data = f.read()
 
-    bug = bytes()
-    LOCATION_START = 142
-    for i in range(4):
-        bug += (LOCATION_START + i).to_bytes(1, "little")
-        bug += b"\x00" # 1 byte padding
-        for _ in range(10):
-            specie = struct.unpack("<H", stream.read(2))[0].to_bytes(2, "little")
-            min_level = stream.read(1)
-            max_level = stream.read(1)
-
-            bug += specie
-            bug += max_level
-            bug += min_level
-            stream.read(4)
+    bug = pack_encounter_hgss_bug(data)
 
     with open("hgss_bug.bin", "wb") as f:
         f.write(bug)
 
 
 def headbutt():
-    HG_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/hg_headbutt").get_elements()
-    SS_HEADBUTT_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/ss_headbutt").get_elements()
+    HG_HEADBUTT_ENCOUNT = [x for x in Narc(f"{SCRIPT_FOLDER}/hgss/hg_headbutt").get_elements() if len(x) != 4]
+    SS_HEADBUTT_ENCOUNT = [x for x in Narc(f"{SCRIPT_FOLDER}/hgss/ss_headbutt").get_elements() if len(x) != 4]
 
     locations = (
         111, 112, 113, 114, 115, 116, 117, 118, 121, 92, 122, 123,
@@ -138,75 +125,23 @@ def headbutt():
         58, 85, 128, 24, 20, 137, 71, 102, 148, 136, 125, 87
     )
 
-    index = 0
     hg_headbutt = bytes()
-    ss_headbutt = bytes()
-    # HG and SS encounters fairly match except for minor differences in levels
-    for hg_encounter, ss_encounter in zip(HG_HEADBUTT_ENCOUNT, SS_HEADBUTT_ENCOUNT):
-        # If there are no trees, then skip
-        if hg_encounter[0] == 0 and hg_encounter[2] == 0:
-            continue
-
+    for i, encounter in enumerate(HG_HEADBUTT_ENCOUNT):
         # Skip double Route 16
-        if index == 58:
-            index += 1
+        if i == 58:
             continue
-        else:
-            hg_headbutt += locations[index].to_bytes(1, "little")
-            ss_headbutt += locations[index].to_bytes(1, "little")
-            index += 1
 
-        hg_special_trees = 1 if hg_encounter[2] != 0 else 0
-        ss_special_trees = 1 if ss_encounter[2] != 0 else 0
+        hg_headbutt += locations[i].to_bytes(1, "little")
+        hg_headbutt += pack_encounter_hgss_headbutt(encounter)
 
-        hg_headbutt += hg_special_trees.to_bytes(1, "little")
-        ss_headbutt += ss_special_trees.to_bytes(1, "little")
+    ss_headbutt = bytes()
+    for i, encounter in enumerate(SS_HEADBUTT_ENCOUNT):
+        # Skip double Route 16
+        if i == 58:
+            continue
 
-        hg_stream = io.BytesIO(hg_encounter)
-        hg_stream.seek(4)
-
-        ss_stream = io.BytesIO(ss_encounter)
-        ss_stream.seek(4)
-
-        # Add normal tree tables
-        for _ in range(12):
-            specie = struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
-            min_level = hg_stream.read(1)
-            max_level = hg_stream.read(1)
-
-            hg_headbutt += specie
-            hg_headbutt += max_level
-            hg_headbutt += min_level
-
-            specie = struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
-            min_level = ss_stream.read(1)
-            max_level = ss_stream.read(1)
-
-            ss_headbutt += specie
-            ss_headbutt += max_level
-            ss_headbutt += min_level
-
-        # Check for special trees
-        if hg_special_trees != 0:
-            for _ in range(6):
-                specie = struct.unpack("<H", hg_stream.read(2))[0].to_bytes(2, "little")
-                min_level = hg_stream.read(1)
-                max_level = hg_stream.read(1)
-
-                hg_headbutt += specie
-                hg_headbutt += max_level
-                hg_headbutt += min_level
-
-                specie = struct.unpack("<H", ss_stream.read(2))[0].to_bytes(2, "little")
-                min_level = ss_stream.read(1)
-                max_level = ss_stream.read(1)
-
-                ss_headbutt += specie
-                ss_headbutt += max_level
-                ss_headbutt += min_level
-        else:
-            hg_headbutt += b"\x00" * (6 * 4)
-            ss_headbutt += b"\x00" * (6 * 4)
+        ss_headbutt += locations[i].to_bytes(1, "little")
+        ss_headbutt += pack_encounter_hgss_headbutt(encounter)
 
     with open("hg_headbutt.bin", "wb") as f:
         f.write(hg_headbutt)
@@ -229,12 +164,12 @@ def safari():
 
         stream = io.BytesIO(safari_encounter)
 
-        tall_grass_encounters = int.from_bytes(stream.read(1), "little") # 10
-        surfing_encounters = int.from_bytes(stream.read(1), "little") # 3
-        old_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
-        good_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
-        super_rod_encounters = int.from_bytes(stream.read(1), "little") # 2
-        stream.read(3) # Pad
+        tall_grass_encounters = int.from_bytes(stream.read(1), "little")  # 10
+        surfing_encounters = int.from_bytes(stream.read(1), "little")  # 3
+        old_rod_encounters = int.from_bytes(stream.read(1), "little")  # 2
+        good_rod_encounters = int.from_bytes(stream.read(1), "little")  # 2
+        super_rod_encounters = int.from_bytes(stream.read(1), "little")  # 2
+        stream.read(3)  # Pad
 
         encounters = (
             tall_grass_encounters, surfing_encounters, old_rod_encounters,
@@ -251,7 +186,7 @@ def safari():
 
                 safari += specie
                 safari += level
-                safari += b"\x00" # 1 byte padding
+                safari += b"\x00"  # 1 byte padding
 
             # Block modifiers
             for _ in range(encounter * 3):
@@ -261,7 +196,7 @@ def safari():
 
                 safari += specie
                 safari += level
-                safari += b"\x00" # 1 byte padding
+                safari += b"\x00"  # 1 byte padding
 
             first_block_type = []
             first_block_quantity = []

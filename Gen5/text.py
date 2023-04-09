@@ -3,6 +3,7 @@ import struct
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
+
 def read_map_names(path):
     file = open(path, "rb")
 

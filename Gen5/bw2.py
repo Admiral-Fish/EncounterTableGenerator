@@ -131,7 +131,7 @@ def encounters(text: bool):
                     f.write("\n")
 
 
-def hidden_grotto():    
+def hidden_grotto():
     BW_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/grotto").get_elements()
     locations = (45, 106, 126, 107, 135, 111, 121, 136, 118, 34, 130, 131, 123, 137, 9, 8, 101, 138, 100, 127)
 
@@ -140,7 +140,7 @@ def hidden_grotto():
         stream = io.BytesIO(encounter)
 
         bw += location.to_bytes(1, "little")
-        bw += b"\x00" # 1 byte padding
+        bw += b"\x00"  # 1 byte padding
 
         species = [0]*12
         max_level = [0]*12
@@ -162,9 +162,8 @@ def hidden_grotto():
             for j in range(4):
                 gender[i + j * 3] = stream.read(1)
 
-            stream.read(4) # Form, always 0 -> skip
-
-            stream.read(2) # Padding
+            stream.read(4)  # Form, always 0 -> skip
+            stream.read(2)  # Padding
 
         stream.seek(0x9c)
         for i in range(4):
@@ -180,7 +179,7 @@ def hidden_grotto():
             bw += max_level[i]
             bw += min_level[i]
             bw += gender[i]
-            bw += b"\x00" # 1 byte padding
+            bw += b"\x00"  # 1 byte padding
 
         for x in item:
             bw += x

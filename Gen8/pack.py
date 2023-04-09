@@ -11,7 +11,7 @@ def pack_encounter_bdsp(encounter: dict):
     for entry in encounter["ground_mons"]:
         data += entry["monsNo"].to_bytes(2, "little")
         data += entry["maxlv"].to_bytes(1, "little")
-        data += b"\x00" # 1 byte padding
+        data += b"\x00"  # 1 byte padding
 
     # Swarm modifiers (same level)
     for entry in encounter["tairyo"]:
@@ -63,8 +63,9 @@ def pack_encounter_bdsp(encounter: dict):
 
     return data
 
+
 def pack_encounter_underground(rand_mark_room: dict, special_pokemon_rates: dict, enabled_pokemon: dict, pokemon_data: dict):
-    data = bytes()    
+    data = bytes()
     data += rand_mark_room["min"].to_bytes(1, "little")
     data += rand_mark_room["max"].to_bytes(1, "little")
     data += len(enabled_pokemon).to_bytes(1, "little")
@@ -74,10 +75,10 @@ def pack_encounter_underground(rand_mark_room: dict, special_pokemon_rates: dict
         data += rate.to_bytes(1, "little")
 
     for rate in special_pokemon_rates:
-        data += rate[0].to_bytes(2, "little") # Rate
-        data += rate[1].to_bytes(2, "little") # Specie
+        data += rate[0].to_bytes(2, "little")  # Rate
+        data += rate[1].to_bytes(2, "little")  # Specie
 
-    for enabled_pokemon in enabled_pokemon:        
+    for enabled_pokemon in enabled_pokemon:
         pokemon = list(filter(lambda x: x["monsno"] == enabled_pokemon["monsno"], pokemon_data))[0]
 
         data += enabled_pokemon["monsno"].to_bytes(2, "little")
@@ -86,6 +87,6 @@ def pack_encounter_underground(rand_mark_room: dict, special_pokemon_rates: dict
         data += enabled_pokemon["zukanflag"].to_bytes(1, "little")
         data += pokemon["rateup"].to_bytes(1, "little")
         data += pokemon["size"].to_bytes(1, "little")
-        data += b"\x00" # 1 byte padding
+        data += b"\x00"  # 1 byte padding
 
     return data

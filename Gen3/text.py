@@ -24,7 +24,7 @@ def clean_string(map_string: str):
     return " ".join(strings)
 
 
-def load_pokemon():    
+def load_pokemon():
     POKEMON = "https://raw.githubusercontent.com/Admiral-Fish/PokeFinder/master/Source/Core/Resources/i18n/en/species_en.txt"
 
     with requests.get(POKEMON) as r:

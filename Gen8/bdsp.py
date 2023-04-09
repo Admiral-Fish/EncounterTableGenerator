@@ -152,14 +152,14 @@ def underground():
         special_pokemon_rates_p = list(map(lambda x: (x["Pspecialrate"], x["monsno"]), special_pokemon_rates_p))
         special_pokemon_rates_p.sort(key=lambda x: x[1], reverse=True)
 
-        rand_mark_room = list(filter(lambda x: x["id"] == room_id, rand_mark))[0]        
+        rand_mark_room = list(filter(lambda x: x["id"] == room_id, rand_mark))[0]
         ug_encount = encount[rand_mark_room["FileName"]]
         enabled_pokemon_d = list(filter(lambda x: x["version"] != 3, ug_encount))
         enabled_pokemon_p = list(filter(lambda x: x["version"] != 2, ug_encount))
 
         d += room_id.to_bytes(1, "little")
         d += pack_encounter_underground(rand_mark_room, special_pokemon_rates_d, enabled_pokemon_d, pokemon_data)
-        
+
         p += room_id.to_bytes(1, "little")
         p += pack_encounter_underground(rand_mark_room, special_pokemon_rates_p, enabled_pokemon_p, pokemon_data)
 

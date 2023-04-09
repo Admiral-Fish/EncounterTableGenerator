@@ -28,10 +28,10 @@ def encounters(text: bool):
     map_names = []
     for map_header in map_headers:
         encounter_id = map_header[20] | (map_header[21] << 8)
-        
+
         # Invalid encounter area
         if encounter_id == 65535:
-            continue 
+            continue
 
         # The lowest part in Relic Castle all share the same tables
         if encounter_id in (16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 32):
