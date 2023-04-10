@@ -38,8 +38,8 @@ def encounters(text: bool):
         if map_name not in map_names:
             map_names.append(map_name)
 
-        emerald += map_number.to_bytes()
-        pack_encounter_gen3(encounter, pokemon)
+        emerald += map_number.to_bytes(1, "little")
+        emerald += pack_encounter_gen3(encounter, pokemon)
 
     with open("emerald.bin", "wb+") as f:
         f.write(emerald)

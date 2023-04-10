@@ -303,6 +303,6 @@ def pack_encounter_hgss_headbutt(encounter: bytes):
             data += slot.max_level.to_bytes(1, "little")
             data += slot.min_level.to_bytes(1, "little")
     else:
-        data = b"\x00" * (6 * 4)
+        data += b"\x00" * (6 * 4)
 
     return data

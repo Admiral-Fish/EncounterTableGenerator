@@ -57,7 +57,7 @@ def encounters(text: bool):
         f.write(xd)
 
     if text:
-        map_names = ((0, "Rock Poke Spot"), (1, "Oasis Poke Spot"), (2, "Cave Poke Spot"))
+        map_names = [(0, "Rock Poke Spot"), (1, "Oasis Poke Spot"), (2, "Cave Poke Spot")]
         with open("gales_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
