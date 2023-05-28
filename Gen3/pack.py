@@ -9,7 +9,7 @@ UNOWN = {
 }
 
 
-def pack_encounter_gen3(encounter: dict, pokemon: dict):
+def pack_encounter_gen3(encounter: dict):
     data = bytes()
 
     if (land := "land_mons" in encounter):
@@ -36,7 +36,7 @@ def pack_encounter_gen3(encounter: dict, pokemon: dict):
 
     if land:
         for i, slot in enumerate(encounter["land_mons"]["mons"]):
-            specie = pokemon[slot["species"]]
+            specie = slot["species"]
             if encounter["map"] in UNOWN.keys():
                 form = UNOWN[encounter["map"]][i]
                 specie = (form << 11) | specie
@@ -49,7 +49,7 @@ def pack_encounter_gen3(encounter: dict, pokemon: dict):
 
     if water:
         for slot in encounter["water_mons"]["mons"]:
-            data += pokemon[slot["species"]].to_bytes(2, "little")
+            data += slot["species"].to_bytes(2, "little")
             data += slot["max_level"].to_bytes(1, "little")
             data += slot["min_level"].to_bytes(1, "little")
     else:
@@ -57,7 +57,7 @@ def pack_encounter_gen3(encounter: dict, pokemon: dict):
 
     if rock:
         for slot in encounter["rock_smash_mons"]["mons"]:
-            data += pokemon[slot["species"]].to_bytes(2, "little")
+            data += slot["species"].to_bytes(2, "little")
             data += slot["max_level"].to_bytes(1, "little")
             data += slot["min_level"].to_bytes(1, "little")
     else:
@@ -65,7 +65,7 @@ def pack_encounter_gen3(encounter: dict, pokemon: dict):
 
     if fish:
         for slot in encounter["fishing_mons"]["mons"]:
-            data += pokemon[slot["species"]].to_bytes(2, "little")
+            data += slot["species"].to_bytes(2, "little")
             data += slot["max_level"].to_bytes(1, "little")
             data += slot["min_level"].to_bytes(1, "little")
     else:

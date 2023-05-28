@@ -1,28 +1,19 @@
 import json
+import os
 import re
 
-import requests
-
 from .pack import pack_encounter_gen3
-from .text import clean_string, load_pokemon
+from .text import clean_string
+
+SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 def encounters(text: bool):
-    DATA = "https://raw.githubusercontent.com/pret/pokeemerald/master/src/data/wild_encounters.json"
-    MAPS = "https://raw.githubusercontent.com/pret/pokeemerald/master/include/constants/map_groups.h"
+    DATA = f"{SCRIPT_FOLDER}/emerald/wild_encounters.json"
 
-    with requests.get(DATA) as r:
-        data = json.loads(r.content)
+    with open(DATA, "r") as f:
+        encounters = json.load(f)
 
-    with requests.get(MAPS) as r:
-        matches = re.findall(r"#define (\S+)\s+(\(.+\))", r.content.decode("utf-8"))
-        maps = {}
-        for map, num in matches:
-            maps[map] = eval(num)
-
-    pokemon = load_pokemon()
-
-    encounters = data["wild_encounter_groups"][0]["encounters"]
     emerald = bytes()
     map_names = []
     for map_number, encounter in enumerate(encounters):
@@ -39,7 +30,7 @@ def encounters(text: bool):
             map_names.append(map_name)
 
         emerald += map_number.to_bytes(1, "little")
-        emerald += pack_encounter_gen3(encounter, pokemon)
+        emerald += pack_encounter_gen3(encounter)
 
     with open("emerald.bin", "wb+") as f:
         f.write(emerald)

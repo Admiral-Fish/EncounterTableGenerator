@@ -1,28 +1,18 @@
 import json
-import re
-
-import requests
+import os
 
 from .pack import pack_encounter_gen3
-from .text import clean_string, load_pokemon
+from .text import clean_string
+
+SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 def encounters(text: bool):
-    DATA = "https://raw.githubusercontent.com/pret/pokeruby/master/src/data/wild_encounters.json"
-    MAPS = "https://raw.githubusercontent.com/pret/pokeruby/master/include/constants/map_groups.h"
+    DATA = f"{SCRIPT_FOLDER}/rs/wild_encounters.json"
 
-    with requests.get(DATA) as r:
-        data = json.loads(r.content)
+    with open(DATA, "r") as f:
+        encounters = json.load(f)
 
-    with requests.get(MAPS) as r:
-        matches = re.findall(r"#define (\S+)\s+(\(.+\))", r.content.decode("utf-8"))
-        maps = {}
-        for map, num in matches:
-            maps[map] = eval(num)
-
-    pokemon = load_pokemon()
-
-    encounters = data["wild_encounter_groups"][0]["encounters"]
     map_names = []
 
     ruby = bytes()
@@ -32,7 +22,7 @@ def encounters(text: bool):
             map_names.append(map_name)
 
         ruby += map_number.to_bytes(1, "little")
-        ruby += pack_encounter_gen3(encounter, pokemon)
+        ruby += pack_encounter_gen3(encounter)
 
     sapphire = bytes()
     for map_number, encounter in enumerate(filter(lambda x: "Sapphire" in x["base_label"], encounters)):
@@ -41,7 +31,7 @@ def encounters(text: bool):
             map_names.append(map_name)
 
         sapphire += map_number.to_bytes(1, "little")
-        sapphire += pack_encounter_gen3(encounter, pokemon)
+        sapphire += pack_encounter_gen3(encounter)
 
     with open("ruby.bin", "wb+") as f:
         f.write(ruby)

@@ -1,4 +1,3 @@
-import io
 import os
 from ctypes import BigEndianStructure, Structure, c_uint8, c_uint16, c_uint32
 

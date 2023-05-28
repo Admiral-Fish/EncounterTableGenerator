@@ -1,28 +1,19 @@
 import json
+import os
 import re
 
-import requests
-
 from .pack import pack_encounter_gen3
-from .text import clean_string, load_pokemon
+from .text import clean_string
+
+SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 def encounters(text: bool):
-    DATA = "https://raw.githubusercontent.com/pret/pokefirered/master/src/data/wild_encounters.json"
-    MAPS = "https://raw.githubusercontent.com/pret/pokefirered/master/include/constants/map_groups.h"
+    DATA = f"{SCRIPT_FOLDER}/frlg/wild_encounters.json"
 
-    with requests.get(DATA) as r:
-        data = json.loads(r.content)
+    with open(DATA, "r") as f:
+        encounters = json.load(f)
 
-    with requests.get(MAPS) as r:
-        matches = re.findall(r"#define (\S+)\s+(\(.+\))", r.content.decode("utf-8"))
-        maps = {}
-        for map, num in matches:
-            maps[map] = eval(num)
-
-    pokemon = load_pokemon()
-
-    encounters = data["wild_encounter_groups"][0]["encounters"]
     map_names = []
 
     fr = bytes()
@@ -36,7 +27,7 @@ def encounters(text: bool):
             map_names.append(map_name)
 
         fr += map_number.to_bytes(1, "little")
-        fr += pack_encounter_gen3(encounter, pokemon)
+        fr += pack_encounter_gen3(encounter)
 
     lg = bytes()
     for map_number, encounter in enumerate(filter(lambda x: "LeafGreen" in x["base_label"], encounters)):
@@ -45,7 +36,7 @@ def encounters(text: bool):
             continue
 
         lg += map_number.to_bytes(1, "little")
-        lg += pack_encounter_gen3(encounter, pokemon)
+        lg += pack_encounter_gen3(encounter)
 
     with open("firered.bin", "wb+") as f:
         f.write(fr)
