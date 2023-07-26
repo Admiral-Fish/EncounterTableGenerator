@@ -67,6 +67,7 @@ def pack_encounter_gen5(encounter: bytes):
         data += season.surfSpecialRate.to_bytes(1, "little")
         data += season.fishRate.to_bytes(1, "little")
         data += season.fishSpecialRate.to_bytes(1, "little")
+        data += b"\x00"  # 1 byte padding
 
         # Grass
         for slot in season.grass:
