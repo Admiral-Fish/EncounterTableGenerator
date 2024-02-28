@@ -828,7 +828,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -856,7 +855,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -884,7 +882,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -906,7 +903,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -934,7 +930,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -968,7 +963,6 @@
                     "genderRatio": 31
                 }
             ],
-            "count": 4,
             "type": "ShadowType::EReader"
         },
         {
@@ -1002,7 +996,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::EReader"
         },
         {
@@ -1036,7 +1029,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::EReader"
         },
         {
@@ -1053,7 +1045,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::SingleLock"
         },
         {
@@ -1070,7 +1061,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::SingleLock"
         },
         {
@@ -1093,7 +1083,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1122,7 +1111,6 @@
                     "genderRatio": 255
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1145,7 +1133,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1186,7 +1173,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 5,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1227,7 +1213,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 5,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1268,7 +1253,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 5,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1291,7 +1275,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1320,7 +1303,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1343,7 +1325,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1372,7 +1353,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1401,7 +1381,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1424,7 +1403,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1453,7 +1431,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1482,7 +1459,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1511,7 +1487,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1534,7 +1509,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1551,7 +1525,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::SingleLock"
         },
         {
@@ -1568,7 +1541,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::SingleLock"
         },
         {
@@ -1591,7 +1563,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1614,7 +1585,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1643,7 +1613,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1666,7 +1635,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1689,7 +1657,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1712,7 +1679,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1741,7 +1707,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1764,7 +1729,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1793,7 +1757,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1816,7 +1779,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1845,7 +1807,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 3,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -1874,7 +1835,6 @@
                     "genderRatio": 31
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1903,7 +1863,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1938,7 +1897,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -1967,7 +1925,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -1996,7 +1953,6 @@
                     "genderRatio": 63
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2031,7 +1987,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2066,7 +2021,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2101,7 +2055,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2142,7 +2095,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 5,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2171,7 +2123,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2206,7 +2157,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2223,7 +2173,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::SingleLock"
         },
         {
@@ -2252,7 +2201,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2281,7 +2229,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2316,7 +2263,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2345,7 +2291,6 @@
                     "genderRatio": 255
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2380,7 +2325,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2409,7 +2353,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2444,7 +2387,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2473,7 +2415,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2508,7 +2449,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 4,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2537,7 +2477,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2572,7 +2511,6 @@
                     "genderRatio": 63
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2595,7 +2533,6 @@
                     "genderRatio": 255
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2618,7 +2555,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 2,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2647,7 +2583,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 3,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2676,7 +2611,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 3,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2717,7 +2651,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 5,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2752,7 +2685,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2793,7 +2725,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 5,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2828,7 +2759,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2869,7 +2799,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 5,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -2904,7 +2833,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2921,7 +2849,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 1,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -2944,7 +2871,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 2,
             "type": "ShadowType::Salamence"
         },
         {
@@ -2979,7 +2905,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 4,
             "type": "ShadowType::FirstShadow"
         },
         {
@@ -3020,7 +2945,6 @@
                     "genderRatio": 0
                 }
             ],
-            "count": 5,
             "type": "ShadowType::SecondShadow"
         },
         {
@@ -3061,7 +2985,6 @@
                     "genderRatio": 127
                 }
             ],
-            "count": 5,
             "type": "ShadowType::FirstShadow"
         }
     ],
