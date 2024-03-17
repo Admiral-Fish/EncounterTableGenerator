@@ -46,7 +46,7 @@ def encounters(text: bool):
             continue
 
         # Ruins of Alpha interior all share the same table
-        if encounter_id in (11, 12, 13):
+        if encounter_id in (12, 13):
             continue
 
         if (encounter_id := map_header[0]) != 255:
