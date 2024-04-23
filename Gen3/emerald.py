@@ -25,6 +25,14 @@ def encounters(text: bool):
         if "Unused" in encounter["base_label"]:
             continue
 
+        # Abandoned Ship has the same table for all locations
+        if map_number == 56:
+            continue
+
+        # Magma Hideout has the same table for all locations
+        if map_number in (100, 101, 102, 103, 104, 105, 106):
+            continue
+
         map_name = (map_number, clean_string(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
