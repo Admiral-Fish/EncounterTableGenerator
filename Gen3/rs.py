@@ -30,6 +30,10 @@ def encounters(text: bool):
 
     sapphire = bytes()
     for map_number, encounter in enumerate(filter(lambda x: "Sapphire" in x["base_label"], encounters)):
+        # Abandoned Ship has the same table for all locations
+        if map_number == 51:
+            continue
+
         map_name = (map_number, clean_string(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
