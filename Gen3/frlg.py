@@ -3,7 +3,7 @@ import os
 import re
 
 from .pack import pack_encounter_gen3
-from .text import clean_string
+from .text import clean_string_frlg
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -22,7 +22,39 @@ def encounters(text: bool):
         if re.search(r"AlteringCave_[2-9]", encounter["base_label"]):
             continue
 
-        map_name = (map_number, clean_string(encounter["map"]))
+        # Victory Road 1F and 3F share the same table
+        if map_number == 15:
+            continue
+
+        # Pokemon Mansion 1F, 2F and 3F share the same table
+        if map_number in (17, 18):
+            continue
+
+        # Pokemon Tower 4F and 5F share the same table
+        if map_number == 36:
+            continue
+
+        # Mt Ember Summit Path 1F and 3F share the same table
+        if map_number == 43:
+            continue
+
+        # Four Island Icefall Cave 1F and B1F share the same table
+        if map_number == 53:
+            continue
+
+        # Five Island Lost Cave Room 1-10 share the same table
+        if map_number in (57, 58, 59, 60, 61, 62, 63, 64, 65):
+            continue
+
+        # Five Island Lost Cave Room 11-14 share the same table
+        if map_number in (67, 68, 69):
+            continue
+
+        # Route 21 North/South share the same table
+        if map_number == 108:
+            continue
+
+        map_name = (map_number, clean_string_frlg(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
 
@@ -33,6 +65,38 @@ def encounters(text: bool):
     for map_number, encounter in enumerate(filter(lambda x: "LeafGreen" in x["base_label"], encounters)):
         # Altering Cave has 8 unused tables
         if re.search(r"AlteringCave_[2-9]", encounter["base_label"]):
+            continue
+
+        # Victory Road 1F and 3F share the same table
+        if map_number == 15:
+            continue
+
+        # Pokemon Mansion 1F, 2F and 3F share the same table
+        if map_number in (17, 18):
+            continue
+
+        # Pokemon Tower 4F and 5F share the same table
+        if map_number == 36:
+            continue
+
+        # Mt Ember Summit Path 1F and 3F share the same table
+        if map_number == 43:
+            continue
+
+        # Four Island Icefall Cave 1F and B1F share the same table
+        if map_number == 53:
+            continue
+
+        # Five Island Lost Cave Room 1-10 share the same table
+        if map_number in (57, 58, 59, 60, 61, 62, 63, 64, 65):
+            continue
+
+        # Five Island Lost Cave Room 11-14 share the same table
+        if map_number in (67, 68, 69):
+            continue
+
+        # Route 21 North/South share the same table
+        if map_number == 108:
             continue
 
         lg += map_number.to_bytes(1, "little")

@@ -2,7 +2,7 @@ import json
 import os
 
 from .pack import pack_encounter_gen3
-from .text import clean_string
+from .text import clean_string_rse
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -17,11 +17,30 @@ def encounters(text: bool):
 
     ruby = bytes()
     for map_number, encounter in enumerate(filter(lambda x: "Ruby" in x["base_label"], encounters)):
+        # Mt Pyre 1F-3F share the same table
+        # Mt Pyre 4F-6F share the same table
+        if map_number in (19, 20, 22, 23):
+            continue
+
+        # All Seafloor locations share the same table even if each one doesn't offer each encounter type (grass/water/fish)
+        # The two that offer all 3 are 32/33 Room 6/Room 7
+        if map_number in (26, 27, 28, 29, 30, 31, 33, 34):
+            continue
+
+        # Cave Of Origin 1F, B1F, and B2F share the same table
+        if map_number in (37, 38, 39):
+            continue
+
+        # All non ice room Shoal Cave share the same table even if each one doesn't offer each encounter type (grass/water/fish)
+        # The two that offer all 3 are 43/44 Entrance Room/Inner Room
+        if map_number in (43, 45, 46):
+            continue
+
         # Abandoned Ship has the same table for all locations
         if map_number == 51:
             continue
 
-        map_name = (map_number, clean_string(encounter["map"]))
+        map_name = (map_number, clean_string_rse(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
 
@@ -30,11 +49,30 @@ def encounters(text: bool):
 
     sapphire = bytes()
     for map_number, encounter in enumerate(filter(lambda x: "Sapphire" in x["base_label"], encounters)):
+        # Mt Pyre 1F-3F share the same table
+        # Mt Pyre 4F-6F share the same table
+        if map_number in (19, 20, 22, 23):
+            continue
+
+        # All Seafloor locations share the same table even if each one doesn't offer each encounter type (grass/water/fish)
+        # The two that offer all 3 are 32/33 Room 6/Room 7
+        if map_number in (26, 27, 28, 29, 30, 31, 33, 34):
+            continue
+
+        # Cave Of Origin 1F, B1F, and B2F share the same table
+        if map_number in (37, 38, 39):
+            continue
+
+        # All non ice room Shoal Cave share the same table even if each one doesn't offer each encounter type (grass/water/fish)
+        # The two that offer all 3 are 43/44 Entrance Room/Inner Room
+        if map_number in (43, 45, 46):
+            continue
+
         # Abandoned Ship has the same table for all locations
         if map_number == 51:
             continue
 
-        map_name = (map_number, clean_string(encounter["map"]))
+        map_name = (map_number, clean_string_rse(encounter["map"]))
         if map_name not in map_names:
             map_names.append(map_name)
 
