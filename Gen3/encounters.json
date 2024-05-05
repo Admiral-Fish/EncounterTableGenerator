@@ -213,6 +213,12 @@
             "level": 30
         },
         {
+            "description": "Voltorb @ New Mauville",
+            "version": "Game::RSE",
+            "specie": 100,
+            "level": 25
+        },
+        {
             "description": "Electrode @ Magma/Aqua Hideout",
             "version": "Game::RSE",
             "specie": 101,
