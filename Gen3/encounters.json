@@ -376,6 +376,38 @@
             "level": 70
         }
     ],
+    "roamers": [
+        {
+            "description": "Raikou",
+            "version": "Game::FRLG",
+            "specie": 243,
+            "level": 50
+        },
+        {
+            "description": "Entei",
+            "version": "Game::FRLG",
+            "specie": 244,
+            "level": 50
+        },
+        {
+            "description": "Suicune",
+            "version": "Game::FRLG",
+            "specie": 245,
+            "level": 50
+        },
+        {
+            "description": "Latias",
+            "version": "Game::Emerald | Game::Sapphire",
+            "specie": 380,
+            "level": 40
+        },
+        {
+            "description": "Latios",
+            "version": "Game::Emerald | Game::Ruby",
+            "specie": 381,
+            "level": 40
+        }
+    ],
     "galesColo": [
         {
             "description": "Umbreon",
