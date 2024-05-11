@@ -2275,8 +2275,8 @@
                 {
                     "description": "Electrode (-) (Hardy)",
                     "nature": 0,
-                    "gender": 0,
-                    "genderRatio": 0
+                    "gender": 2,
+                    "genderRatio": 255
                 },
                 {
                     "description": "Misdreavus (F) (Bashful)",
