@@ -2836,7 +2836,7 @@
             "type": "ShadowType::FirstShadow"
         },
         {
-            "description": "Manetric",
+            "description": "Manectric",
             "version": "Game::Gales",
             "specie": 310,
             "level": 44,
@@ -2849,7 +2849,7 @@
                     "genderRatio": 127
                 }
             ],
-            "type": "ShadowType::FirstShadow"
+            "type": "ShadowType::SingleLock"
         },
         {
             "description": "Salamence",
@@ -2865,7 +2865,7 @@
                     "genderRatio": 127
                 },
                 {
-                    "description": "Shadow Manetric",
+                    "description": "Shadow Manectric",
                     "nature": 0,
                     "gender": 0,
                     "genderRatio": 0
