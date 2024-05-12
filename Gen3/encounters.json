@@ -397,13 +397,25 @@
         },
         {
             "description": "Latias",
-            "version": "Game::Emerald | Game::Sapphire",
+            "version": "Game::Sapphire",
             "specie": 380,
             "level": 40
         },
         {
             "description": "Latios",
-            "version": "Game::Emerald | Game::Ruby",
+            "version": "Game::Ruby",
+            "specie": 381,
+            "level": 40
+        },
+        {
+            "description": "Latias",
+            "version": "Game::Emerald",
+            "specie": 380,
+            "level": 40
+        },
+        {
+            "description": "Latios",
+            "version": "Game::Emerald",
             "specie": 381,
             "level": 40
         }
