@@ -381,31 +381,36 @@
             "description": "Raikou",
             "version": "Game::FRLG",
             "specie": 243,
-            "level": 50
+            "level": 50,
+            "buggedRoamer": true
         },
         {
             "description": "Entei",
             "version": "Game::FRLG",
             "specie": 244,
-            "level": 50
+            "level": 50,
+            "buggedRoamer": true
         },
         {
             "description": "Suicune",
             "version": "Game::FRLG",
             "specie": 245,
-            "level": 50
+            "level": 50,
+            "buggedRoamer": true
         },
         {
             "description": "Latias",
             "version": "Game::Sapphire",
             "specie": 380,
-            "level": 40
+            "level": 40,
+            "buggedRoamer": true
         },
         {
             "description": "Latios",
             "version": "Game::Ruby",
             "specie": 381,
-            "level": 40
+            "level": 40,
+            "buggedRoamer": true
         },
         {
             "description": "Latias",

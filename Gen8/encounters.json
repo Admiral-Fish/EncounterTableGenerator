@@ -116,14 +116,16 @@
             "version": "Game::BDSP",
             "specie": 481,
             "level": 50,
-            "ivCount": 3
+            "ivCount": 3,
+            "roamer": true
         },
         {
             "description": "Cresselia",
             "version": "Game::BDSP",
             "specie": 488,
             "level": 50,
-            "ivCount": 3
+            "ivCount": 3,
+            "roamer": true
         }
     ],
     "legends": [
