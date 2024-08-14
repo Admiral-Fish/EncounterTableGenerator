@@ -626,6 +626,13 @@
             "method": "Method::Method1"
         },
         {
+            "description": "Manaphy @ Pokemon Ranger",
+            "version": "Game::Gen4",
+            "specie": 490,
+            "level": 1,
+            "method": "Method::Method1"
+        },
+        {
             "description": "Darkrai @ Newmoon Island",
             "version": "Game::Platinum",
             "specie": 491,
