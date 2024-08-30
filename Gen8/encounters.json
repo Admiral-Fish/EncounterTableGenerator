@@ -95,7 +95,8 @@
             "description": "Drifloon",
             "version": "Game::BDSP",
             "specie": 425,
-            "level": 22
+            "level": 22,
+            "ivCount": 3
         },
         {
             "description": "Spiritomb",
