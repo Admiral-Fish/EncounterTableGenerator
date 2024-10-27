@@ -2,7 +2,7 @@ import json
 import os
 
 from .narc import Narc
-from .pack import pack_encounter_dppt
+from .pack import pack_encounter_dppt, pack_encounter_dppt_honey
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -55,18 +55,18 @@ def encounters(text: bool):
             map_names.append(map_name)
 
             # Diamond
-            d += encounter_id.to_bytes(1, "little")
-            d += pack_encounter_dppt(D_ENCOUNTERS[encounter_id])
+            d += pack_encounter_dppt(encounter_id ,D_ENCOUNTERS[encounter_id])
 
             # Pearl
-            p += encounter_id.to_bytes(1, "little")
-            p += pack_encounter_dppt(P_ENCOUNTERS[encounter_id])
+            p += pack_encounter_dppt(encounter_id, P_ENCOUNTERS[encounter_id])
 
     with open("diamond.bin", "wb+") as f:
         f.write(d)
 
     with open("pearl.bin", "wb+") as f:
         f.write(p)
+
+    map_names.append((183, "Floaroma Meadow"))
 
     if text:
         with open("dppt_en.txt", "w+", encoding="utf-8") as f:
@@ -75,3 +75,25 @@ def encounters(text: bool):
                 f.write(f"{num},{name}")
                 if i != len(map_names) - 1:
                     f.write("\n")
+
+
+def honey():
+    HONEY_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/dp/encdata_ex.narc").get_elements()
+
+    locations = (
+        145, 146, 147, 148, 149, 150, 156, 157, 159, 160,
+        161, 162, 163, 164, 167, 169, 170, 7, 8, 9, 183
+    )
+
+    d = bytes()
+    p = bytes()
+
+    for location in locations:
+        d += pack_encounter_dppt_honey(location, HONEY_ENCOUNT[2] + HONEY_ENCOUNT[3] + HONEY_ENCOUNT[4])
+        p += pack_encounter_dppt_honey(location, HONEY_ENCOUNT[5] + HONEY_ENCOUNT[6] + HONEY_ENCOUNT[7])
+
+    with open("d_honey.bin", "wb") as f:
+        f.write(d)
+
+    with open("p_honey.bin", "wb") as f:
+        f.write(p)
