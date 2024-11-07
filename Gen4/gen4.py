@@ -8,5 +8,7 @@ def create_encounters(text: bool):
     hgss.safari()
 
     dp.encounters(text)
+    dp.honey()
 
     pt.encounters()
+    pt.honey()

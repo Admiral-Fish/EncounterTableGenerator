@@ -126,6 +126,27 @@ def pack_encounter_dppt(encounter: bytes):
 
     return data
 
+def pack_encounter_dppt_honey(encounter: bytes):
+    class Slot(Structure):
+        _fields_ = [
+            ("specie", c_uint16),
+            ("dummy", c_uint8 * 2)
+        ]
+
+    class Encounter(Structure):
+        _fields_ = [
+            ("slot", Slot * 18)
+        ]
+
+    data = bytes()
+    entry = Encounter.from_buffer_copy(encounter)
+
+    for slot in entry.slot:
+        data += slot.specie.to_bytes(2, "little")
+        data += b"\x0F"  # max level
+        data += b"\x05"  # min level
+
+    return data
 
 def pack_encounter_hgss(encounter: bytes):
     class DynamicSlot(Structure):

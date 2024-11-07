@@ -2,7 +2,7 @@ import json
 import os
 
 from .narc import Narc
-from .pack import pack_encounter_dppt
+from .pack import pack_encounter_dppt, pack_encounter_dppt_honey
 from .text import read_map_names
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -75,3 +75,42 @@ def encounters(text: bool):
                 f.write(f"{num},{name}")
                 if i != len(map_names) - 1:
                     f.write("\n")
+
+
+def honey():
+    D_HONEY_ENCOUNT_NORMAL = f"{SCRIPT_FOLDER}/dp/encdata_ex_2.bin"
+    D_HONEY_ENCOUNT_RARE = f"{SCRIPT_FOLDER}/dp/encdata_ex_3.bin"
+    D_HONEY_ENCOUNT_MUNCHLAX = f"{SCRIPT_FOLDER}/dp/encdata_ex_4.bin"
+    P_HONEY_ENCOUNT_NORMAL = f"{SCRIPT_FOLDER}/dp/encdata_ex_5.bin"
+    P_HONEY_ENCOUNT_RARE = f"{SCRIPT_FOLDER}/dp/encdata_ex_6.bin"
+    P_HONEY_ENCOUNT_MUNCHLAX = f"{SCRIPT_FOLDER}/dp/encdata_ex_7.bin"
+
+    honey = bytes()
+    with open(D_HONEY_ENCOUNT_NORMAL, "rb") as f:
+        data = f.read()
+
+    with open(D_HONEY_ENCOUNT_RARE, "rb") as f:
+        data += f.read()
+
+    with open(D_HONEY_ENCOUNT_MUNCHLAX, "rb") as f:
+        data += f.read()
+
+    honey += pack_encounter_dppt_honey(data)
+
+    with open("d_honey.bin", "wb") as f:
+        f.write(honey)
+
+    honey = bytes()
+    with open(P_HONEY_ENCOUNT_NORMAL, "rb") as f:
+        data = f.read()
+
+    with open(P_HONEY_ENCOUNT_RARE, "rb") as f:
+        data += f.read()
+
+    with open(P_HONEY_ENCOUNT_MUNCHLAX, "rb") as f:
+        data += f.read()
+
+    honey += pack_encounter_dppt_honey(data)
+
+    with open("p_honey.bin", "wb") as f:
+        f.write(honey)

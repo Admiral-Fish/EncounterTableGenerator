@@ -1,7 +1,7 @@
 import os
 
 from .narc import Narc
-from .pack import pack_encounter_dppt
+from .pack import pack_encounter_dppt, pack_encounter_dppt_honey
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,3 +42,24 @@ def encounters():
 
     with open("platinum.bin", "wb+") as f:
         f.write(pt)
+
+
+def honey():
+    PT_HONEY_ENCOUNT_NORMAL = f"{SCRIPT_FOLDER}/pt/encdata_ex_2.bin"
+    PT_HONEY_ENCOUNT_RARE = f"{SCRIPT_FOLDER}/pt/encdata_ex_3.bin"
+    PT_HONEY_ENCOUNT_MUNCHLAX = f"{SCRIPT_FOLDER}/pt/encdata_ex_4.bin"
+
+    honey = bytes()
+    with open(PT_HONEY_ENCOUNT_NORMAL, "rb") as f:
+        data = f.read()
+
+    with open(PT_HONEY_ENCOUNT_RARE, "rb") as f:
+        data += f.read()
+
+    with open(PT_HONEY_ENCOUNT_MUNCHLAX, "rb") as f:
+        data += f.read()
+
+    honey += pack_encounter_dppt_honey(data)
+
+    with open("pt_honey.bin", "wb") as f:
+        f.write(honey)
