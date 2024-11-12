@@ -64,6 +64,30 @@ def pack_encounter_bdsp(encounter: dict):
     return data
 
 
+def pack_encounter_honey(encounter: dict):
+    data = bytes()
+
+    # Normal
+    for entry in encounter:
+        data += entry["Normal"].to_bytes(2, "little")
+        data += b"\x0F"  # max level
+        data += b"\x05"  # min level
+
+    # Rare
+    for entry in encounter:
+        data += entry["Rare"].to_bytes(2, "little")
+        data += b"\x0F"  # max level
+        data += b"\x05"  # min level
+
+    # Munchlax
+    for entry in encounter:
+        data += entry["SuperRare"].to_bytes(2, "little")
+        data += b"\x0F"  # max level
+        data += b"\x05"  # min level
+
+    return data
+
+
 def pack_encounter_underground(rand_mark_room: dict, special_pokemon_rates: dict, enabled_pokemon: dict, pokemon_data: dict):
     data = bytes()
     data += rand_mark_room["min"].to_bytes(1, "little")

@@ -3,7 +3,7 @@ import os
 import re
 from pathlib import Path
 
-from .pack import pack_encounter_bdsp, pack_encounter_underground
+from .pack import pack_encounter_bdsp, pack_encounter_honey, pack_encounter_underground
 
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
@@ -115,6 +115,26 @@ def encounters(text: bool):
                 f.write(f"{num},{name}")
                 if i != len(map_names) - 1:
                     f.write("\n")
+
+
+def honey():
+    D_HONEY_ENCOUNT = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_d.json"
+    P_HONEY_ENCOUNT = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_p.json"
+
+    with open(D_HONEY_ENCOUNT, "r") as f:
+        d_honey_encount = json.load(f)["mistu"]
+
+    with open(P_HONEY_ENCOUNT, "r") as f:
+        p_honey_encount = json.load(f)["mistu"]
+
+    d = pack_encounter_honey(d_honey_encount)
+    p = pack_encounter_honey(p_honey_encount)
+
+    with open("bd_honey.bin", "wb+") as f:
+        f.write(d)
+
+    with open("sp_honey.bin", "wb+") as f:
+        f.write(p)
 
 
 def underground():
