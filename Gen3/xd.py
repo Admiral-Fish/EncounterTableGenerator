@@ -17,14 +17,16 @@ POKEMON = {
     194: 194  # Wooper
 }
 
+
 class Slot(BigEndianStructure):
     _fields_ = [
         ("min_level", c_uint8),
         ("max_level", c_uint8),
         ("specie", c_uint16),
         ("encounter_rate", c_uint32),
-        ("snack_steps", c_uint32) 
+        ("snack_steps", c_uint32)
     ]
+
 
 class Encounter(Structure):
     _fields_ = [

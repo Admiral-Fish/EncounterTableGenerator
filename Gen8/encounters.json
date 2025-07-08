@@ -323,7 +323,8 @@
             "level": 1,
             "ability": 1,
             "shiny": "Shiny::Never",
-            "ivCount": 3
+            "ivCount": 3,
+            "fateful": true
         },
         {
             "description": "Jirachi",
@@ -332,28 +333,32 @@
             "level": 5,
             "ability": 1,
             "shiny": "Shiny::Never",
-            "ivCount": 3
+            "ivCount": 3,
+            "fateful": true
         },
         {
             "description": "Darkrai",
             "version": "Game::BDSP",
             "specie": 491,
             "level": 50,
-            "ivCount": 3
+            "ivCount": 3,
+            "fateful": true
         },
         {
             "description": "Shaymin",
             "version": "Game::BDSP",
             "specie": 492,
             "level": 30,
-            "ivCount": 3
+            "ivCount": 3,
+            "fateful": true
         },
         {
             "description": "Arceus",
             "version": "Game::BDSP",
             "specie": 493,
             "level": 80,
-            "ivCount": 3
+            "ivCount": 3,
+            "fateful": true
         }
     ]
 }

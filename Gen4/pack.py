@@ -230,6 +230,7 @@ def pack_encounter_hgss(encounter: bytes):
 
     return data
 
+
 def pack_encounter_hgss_bug(encounter: bytes):
     class Slot(Structure):
         _fields_ = [
@@ -257,13 +258,14 @@ def pack_encounter_hgss_bug(encounter: bytes):
 
     for i, area in enumerate(entry.areas):
         data += (LOCATION_START + i).to_bytes(1, "little")
-        data += b"\x00" # 1 byte padding
+        data += b"\x00"  # 1 byte padding
         for slot in area.slots:
             data += slot.specie.to_bytes(2, "little")
             data += slot.max_level.to_bytes(1, "little")
             data += slot.min_level.to_bytes(1, "little")
 
     return data
+
 
 def pack_encounter_hgss_headbutt(encounter: bytes):
     class Slot(Structure):
