@@ -139,19 +139,22 @@
             "description": "Snivy @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 495,
-            "level": 5
+            "level": 5,
+            "starter": true
         },
         {
             "description": "Tepig @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 498,
-            "level": 5
+            "level": 5,
+            "starter": true
         },
         {
             "description": "Oshawott @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 501,
-            "level": 5
+            "level": 5,
+            "starter": true
         }
     ],
     "fossils": [
