@@ -139,22 +139,19 @@
             "description": "Snivy @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 495,
-            "level": 5,
-            "starter": true
+            "level": 5
         },
         {
             "description": "Tepig @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 498,
-            "level": 5,
-            "starter": true
+            "level": 5
         },
         {
             "description": "Oshawott @ Nuvema Town / Aspertia City",
             "version": "Game::Gen5",
             "specie": 501,
-            "level": 5,
-            "starter": true
+            "level": 5
         }
     ],
     "fossils": [
@@ -291,62 +288,72 @@
             "version": "Game::BW",
             "specie": 518,
             "level": 50,
-            "ability": 2
+            "ability": 2,
+            "stationary": true
         },
         {
             "description": "Foongus @ Route 6",
             "version": "Game::BW",
             "specie": 590,
-            "level": 20
+            "level": 20,
+            "stationary": true
         },
         {
             "description": "Foongus @ Route 6",
             "version": "Game::BW",
             "specie": 590,
-            "level": 30
+            "level": 30,
+            "stationary": true
         },
         {
             "description": "Amoonguss @ Route 6",
             "version": "Game::BW",
             "specie": 591,
-            "level": 40
+            "level": 40,
+            "stationary": true
         },
         {
             "description": "Darmanitan @ Desert Resort",
             "version": "Game::BW",
             "specie": 555,
             "level": 35,
-            "ability": 2
+            "ability": 2,
+            "stationary": true
         },
         {
             "description": "Volcarona @ Relic Castle",
             "version": "Game::BW",
             "specie": 637,
-            "level": 70
+            "level": 70,
+            "stationary": true
         },
         {
             "description": "Foongus @ Route 6",
             "version": "Game::BW2",
             "specie": 590,
-            "level": 29
+            "level": 29,
+            "stationary": true
         },
         {
             "description": "Amoonguss @ Route 6",
             "version": "Game::BW2",
             "specie": 591,
-            "level": 43
+            "level": 43,
+            "stationary": true
         },
         {
             "description": "Amoonguss @ Route 6",
             "version": "Game::BW2",
             "specie": 591,
-            "level": 47
+            "level": 47,
+            "stationary": true
         },
         {
             "description": "Amoonguss @ Route 6",
             "version": "Game::BW2",
             "specie": 591,
-            "level": 56
+            "level": 56,
+            "stationary": true
         },
         {
             "description": "Jellicent @ Undella Bay Mon Only",
@@ -354,7 +361,8 @@
             "specie": 593,
             "level": 40,
             "ability": 2,
-            "gender": 0
+            "gender": 0,
+            "stationary": true
         },
         {
             "description": "Jellicent @ Undella Bay Thurs Only",
@@ -362,7 +370,8 @@
             "specie": 593,
             "level": 40,
             "ability": 2,
-            "gender": 1
+            "gender": 1,
+            "stationary": true
         },
         {
             "description": "Braviary @ Route 4 Mon Only",
@@ -370,7 +379,8 @@
             "specie": 628,
             "level": 25,
             "ability": 2,
-            "gender": 0
+            "gender": 0,
+            "stationary": true
         },
         {
             "description": "Mandibuzz @ Route 4 Thurs Only",
@@ -378,32 +388,37 @@
             "specie": 630,
             "level": 25,
             "ability": 2,
-            "gender": 1
+            "gender": 1,
+            "stationary": true
         },
         {
             "description": "Volcarona @ Relic Castle",
             "version": "Game::BW2",
             "specie": 637,
-            "level": 35
+            "level": 35,
+            "stationary": true
         },
         {
             "description": "Volcarona @ Relic Castle",
             "version": "Game::BW2",
             "specie": 637,
-            "level": 65
+            "level": 65,
+            "stationary": true
         },
         {
             "description": "Crustle @ Seaside Cave",
             "version": "Game::BW2",
             "specie": 558,
-            "level": 42
+            "level": 42,
+            "stationary": true
         },
         {
             "description": "Naxorus @ Nature Preserve",
             "version": "Game::BW2",
             "specie": 612,
             "level": 60,
-            "shiny": "Shiny::Always"
+            "shiny": "Shiny::Always",
+            "stationary": true
         }
     ],
     "legends": [
@@ -411,167 +426,194 @@
             "description": "Cobalion @ Guidance Chamber",
             "version": "Game::BW",
             "specie": 638,
-            "level": 42
+            "level": 42,
+            "legend": true
         },
         {
             "description": "Terrakion @ Trial Chamber",
             "version": "Game::BW",
             "specie": 639,
-            "level": 42
+            "level": 42,
+            "legend": true
         },
         {
             "description": "Virizion @ Rumination Field",
             "version": "Game::BW",
             "specie": 640,
-            "level": 42
+            "level": 42,
+            "legend": true
         },
         {
             "description": "Reshiram @ N's Castle / Dragonspiral Tower",
             "version": "Game::Black",
             "specie": 643,
             "level": 50,
-            "shiny": "Shiny::Never"
+            "shiny": "Shiny::Never",
+            "legend": true
         },
         {
             "description": "Zekrom @ N's Castle / Dragonspiral Tower",
             "version": "Game::White",
             "specie": 644,
             "level": 50,
-            "shiny": "Shiny::Never"
+            "shiny": "Shiny::Never",
+            "legend": true
         },
         {
             "description": "Landorus @ Abundant Shrine",
             "version": "Game::BW",
             "specie": 645,
-            "level": 70
+            "level": 70,
+            "legend": true
         },
         {
             "description": "Kyurem @ Giant Chasm",
             "version": "Game::BW",
             "specie": 646,
-            "level": 75
+            "level": 75,
+            "legend": true
         },
         {
             "description": "Regirock @ Rock Peak Chamber",
             "version": "Game::BW2",
             "specie": 377,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Regice @ Iceberg Chamber",
             "version": "Game::BW2",
             "specie": 378,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Registeel @ Iron Chamber",
             "version": "Game::BW2",
             "specie": 379,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Latias @ Dreamyard",
             "version": "Game::White2",
             "specie": 380,
-            "level": 68
+            "level": 68,
+            "legend": true
         },
         {
             "description": "Latios @ Dreamyard",
             "version": "Game::Black2",
             "specie": 381,
-            "level": 68
+            "level": 68,
+            "legend": true
         },
         {
             "description": "Uxie @ Nacrene City",
             "version": "Game::BW2",
             "specie": 480,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Mesprit @ Celestial Tower",
             "version": "Game::BW2",
             "specie": 481,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Azelf @ Route 23",
             "version": "Game::BW2",
             "specie": 482,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Heatran @ Reversal Mountain",
             "version": "Game::BW2",
             "specie": 485,
-            "level": 68
+            "level": 68,
+            "legend": true
         },
         {
             "description": "Regigigas @ Twist Mountain",
             "version": "Game::BW2",
             "specie": 486,
-            "level": 68
+            "level": 68,
+            "legend": true
         },
         {
             "description": "Cresselia @ Marvelous Bridge",
             "version": "Game::BW2",
             "specie": 488,
-            "level": 68
+            "level": 68,
+            "legend": true
         },
         {
             "description": "Cobalion @ Route 13",
             "version": "Game::BW2",
             "specie": 638,
-            "level": 45
+            "level": 45,
+            "legend": true
         },
         {
             "description": "Cobalion @ Route 13",
             "version": "Game::BW2",
             "specie": 638,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Terrakion @ Route 22",
             "version": "Game::BW2",
             "specie": 639,
-            "level": 45
+            "level": 45,
+            "legend": true
         },
         {
             "description": "Terrakion @ Route 22",
             "version": "Game::BW2",
             "specie": 639,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Virizion @ Route 11",
             "version": "Game::BW2",
             "specie": 640,
-            "level": 45
+            "level": 45,
+            "legend": true
         },
         {
             "description": "Virizion @ Route 11",
             "version": "Game::BW2",
             "specie": 640,
-            "level": 65
+            "level": 65,
+            "legend": true
         },
         {
             "description": "Reshiram @ Dragonspiral Tower",
             "version": "Game::White2",
             "specie": 643,
             "level": 70,
-            "shiny": "Shiny::Never"
+            "shiny": "Shiny::Never",
+            "legend": true
         },
         {
             "description": "Zekrom @ Dragonspiral Tower",
             "version": "Game::Black2",
             "specie": 644,
             "level": 70,
-            "shiny": "Shiny::Never"
+            "shiny": "Shiny::Never",
+            "legend": true
         },
         {
             "description": "Kyurem @ Giant Chasm",
             "version": "Game::BW2",
             "specie": 646,
-            "level": 70
+            "level": 70,
+            "legend": true
         }
     ],
     "events": [
