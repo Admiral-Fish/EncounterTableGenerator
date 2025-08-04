@@ -241,14 +241,17 @@
             "version": "Game::BW2",
             "specie": 133,
             "level": 10,
-            "ability": 2
+            "ability": 2,
+            "gender": 0,
+            "shiny": "Shiny::Never"
         },
         {
             "description": "Deerling @ Route 6",
             "version": "Game::BW2",
             "specie": 585,
             "level": 30,
-            "ability": 2
+            "ability": 2,
+            "shiny": "Shiny::Never"
         },
         {
             "description": "Shiny Gible @ Floccesy Town",
