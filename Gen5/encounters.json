@@ -390,7 +390,6 @@
             "specie": 628,
             "level": 25,
             "ability": 2,
-            "gender": 0,
             "stationary": true
         },
         {
@@ -399,7 +398,6 @@
             "specie": 630,
             "level": 25,
             "ability": 2,
-            "gender": 1,
             "stationary": true
         },
         {
