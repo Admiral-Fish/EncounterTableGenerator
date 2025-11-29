@@ -659,5 +659,179 @@
             "level": 40,
             "roamer": true
         }
+    ],
+    "curtis": [
+        {
+            "description": "Mankey",
+            "version": "Game::BW2",
+            "specie": 56,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Wobbuffet",
+            "version": "Game::BW2",
+            "specie": 202,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Ralts",
+            "version": "Game::BW2",
+            "specie": 280,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Cranidos",
+            "version": "Game::BW2",
+            "specie": 408,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Rhyhorn",
+            "version": "Game::BW2",
+            "specie": 111,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Shellos",
+            "version": "Game::BW2",
+            "specie": 422,
+            "form": 1,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Sableye",
+            "version": "Game::BW2",
+            "specie": 302,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Spiritomb",
+            "version": "Game::BW2",
+            "specie": 442,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Snorlax",
+            "version": "Game::BW2",
+            "specie": 143,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Phanpy",
+            "version": "Game::BW2",
+            "specie": 231,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Spinda",
+            "version": "Game::BW2",
+            "specie": 327,
+            "level": 50,
+            "curtis": true
+        },
+        {
+            "description": "Togepi",
+            "version": "Game::BW2",
+            "specie": 175,
+            "level": 50,
+            "curtis": true
+        }
+    ],
+    "yancy": [
+        {
+            "description": "Meowth",
+            "version": "Game::BW2",
+            "specie": 52,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Wobbuffet",
+            "version": "Game::BW2",
+            "specie": 202,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Ralts",
+            "version": "Game::BW2",
+            "specie": 280,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Shieldon",
+            "version": "Game::BW2",
+            "specie": 410,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Rhyhorn",
+            "version": "Game::BW2",
+            "specie": 111,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Shellos",
+            "version": "Game::BW2",
+            "specie": 422,
+            "form": 1,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Mawile",
+            "version": "Game::BW2",
+            "specie": 303,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Spiritomb",
+            "version": "Game::BW2",
+            "specie": 442,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Snorlax",
+            "version": "Game::BW2",
+            "specie": 143,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Teddiursa",
+            "version": "Game::BW2",
+            "specie": 216,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Spinda",
+            "version": "Game::BW2",
+            "specie": 327,
+            "level": 50,
+            "yancy": true
+        },
+        {
+            "description": "Togepi",
+            "version": "Game::BW2",
+            "specie": 175,
+            "level": 50,
+            "yancy": true
+        }
     ]
 }
