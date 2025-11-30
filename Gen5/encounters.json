@@ -662,6 +662,8 @@
             "version": "Game::BW2",
             "specie": 56,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -669,6 +671,8 @@
             "version": "Game::BW2",
             "specie": 202,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -676,6 +680,8 @@
             "version": "Game::BW2",
             "specie": 280,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -683,6 +689,8 @@
             "version": "Game::BW2",
             "specie": 408,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -690,14 +698,18 @@
             "version": "Game::BW2",
             "specie": 111,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
             "description": "Shellos",
             "version": "Game::BW2",
             "specie": 422,
-            "form": 1,
             "level": 50,
+            "ability": 2,
+            "form": 1,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -705,6 +717,8 @@
             "version": "Game::BW2",
             "specie": 302,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -712,6 +726,8 @@
             "version": "Game::BW2",
             "specie": 442,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -719,6 +735,8 @@
             "version": "Game::BW2",
             "specie": 143,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -726,6 +744,8 @@
             "version": "Game::BW2",
             "specie": 231,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -733,6 +753,8 @@
             "version": "Game::BW2",
             "specie": 327,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         },
         {
@@ -740,6 +762,8 @@
             "version": "Game::BW2",
             "specie": 175,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "curtis": true
         }
     ],
@@ -749,6 +773,8 @@
             "version": "Game::BW2",
             "specie": 52,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -756,6 +782,8 @@
             "version": "Game::BW2",
             "specie": 202,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -763,6 +791,8 @@
             "version": "Game::BW2",
             "specie": 280,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -770,6 +800,8 @@
             "version": "Game::BW2",
             "specie": 410,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -777,6 +809,8 @@
             "version": "Game::BW2",
             "specie": 111,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -785,6 +819,8 @@
             "specie": 422,
             "form": 1,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -792,6 +828,8 @@
             "version": "Game::BW2",
             "specie": 303,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -799,6 +837,8 @@
             "version": "Game::BW2",
             "specie": 442,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -806,6 +846,8 @@
             "version": "Game::BW2",
             "specie": 143,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -813,6 +855,8 @@
             "version": "Game::BW2",
             "specie": 216,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -820,6 +864,8 @@
             "version": "Game::BW2",
             "specie": 327,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         },
         {
@@ -827,6 +873,8 @@
             "version": "Game::BW2",
             "specie": 175,
             "level": 50,
+            "ability": 2,
+            "shiny:": "Shiny::Never",
             "yancy": true
         }
     ]
