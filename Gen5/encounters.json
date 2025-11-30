@@ -257,16 +257,16 @@
             "version": "Game::Black2",
             "specie": 443,
             "level": 1,
-            "ability": 2,
+            "ability": 0,
             "gender": 0,
             "shiny": "Shiny::Always"
         },
         {
             "description": "Shiny Dratini @ Floccesy Town",
-            "version": "Game::Black2",
+            "version": "Game::White2",
             "specie": 147,
             "level": 1,
-            "ability": 2,
+            "ability": 0,
             "gender": 0,
             "shiny": "Shiny::Always"
         },
