@@ -671,7 +671,7 @@
             "specie": 56,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -680,7 +680,7 @@
             "specie": 202,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -689,7 +689,7 @@
             "specie": 280,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -698,7 +698,7 @@
             "specie": 408,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -707,7 +707,7 @@
             "specie": 111,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -717,7 +717,7 @@
             "level": 50,
             "ability": 2,
             "form": 1,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -726,7 +726,7 @@
             "specie": 302,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -735,7 +735,7 @@
             "specie": 442,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -744,7 +744,7 @@
             "specie": 143,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -753,7 +753,7 @@
             "specie": 231,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -762,7 +762,7 @@
             "specie": 327,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         },
         {
@@ -771,7 +771,7 @@
             "specie": 175,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "curtis": true
         }
     ],
@@ -782,7 +782,7 @@
             "specie": 52,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -791,7 +791,7 @@
             "specie": 202,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -800,7 +800,7 @@
             "specie": 280,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -809,7 +809,7 @@
             "specie": 410,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -818,7 +818,7 @@
             "specie": 111,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -828,7 +828,7 @@
             "form": 1,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -837,7 +837,7 @@
             "specie": 303,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -846,7 +846,7 @@
             "specie": 442,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -855,7 +855,7 @@
             "specie": 143,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -864,7 +864,7 @@
             "specie": 216,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -873,7 +873,7 @@
             "specie": 327,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         },
         {
@@ -882,7 +882,7 @@
             "specie": 175,
             "level": 50,
             "ability": 2,
-            "shiny:": "Shiny::Never",
+            "shiny": "Shiny::Never",
             "yancy": true
         }
     ]
