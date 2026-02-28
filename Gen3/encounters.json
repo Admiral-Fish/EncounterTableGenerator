@@ -1585,7 +1585,7 @@
         {
             "description": "Pineco",
             "version": "Game::Gales",
-            "specie": 361,
+            "specie": 204,
             "level": 20,
             "shiny": "Shiny::Never",
             "locks": [
@@ -1623,7 +1623,7 @@
         {
             "description": "Roselia",
             "version": "Game::Gales",
-            "specie": 177,
+            "specie": 315,
             "level": 22,
             "shiny": "Shiny::Never",
             "locks": [
