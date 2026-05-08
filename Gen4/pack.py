@@ -73,7 +73,9 @@ def pack_encounter_dppt(location: int, encounter: bytes):
     for specie in entry.radar:
         data += specie.to_bytes(2, "little")
 
-    # Forms (impacts Shellos/Gastrodon, skipping)
+    # Forms (impacts Shellos/Gastrodon)
+    data += entry.forms[0].to_bytes(1, "little")
+    data += entry.forms[1].to_bytes(1, "little")
 
     # AnnoonTable (used for unown)
 

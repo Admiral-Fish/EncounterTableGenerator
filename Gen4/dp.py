@@ -55,7 +55,7 @@ def encounters(text: bool):
             map_names.append(map_name)
 
             # Diamond
-            d += pack_encounter_dppt(encounter_id ,D_ENCOUNTERS[encounter_id])
+            d += pack_encounter_dppt(encounter_id, D_ENCOUNTERS[encounter_id])
 
             # Pearl
             p += pack_encounter_dppt(encounter_id, P_ENCOUNTERS[encounter_id])
