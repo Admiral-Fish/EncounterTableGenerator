@@ -8,7 +8,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     B_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw/b_encount").get_elements()
     W_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw/w_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/bw/mapheaders.bin"
@@ -63,14 +63,14 @@ def encounters(text: bool):
         # White
         w += pack_encounter_gen5(encounter_id, W_ENCOUNTERS[encounter_id])
 
-    with open("black.bin", "wb+") as f:
+    with open(f"{output_dir}/black.bin", "wb+") as f:
         f.write(b)
 
-    with open("white.bin", "wb+") as f:
+    with open(f"{output_dir}/white.bin", "wb+") as f:
         f.write(w)
 
     if text:
-        with open("bw_en.txt", "w+") as f:
+        with open(f"{output_dir}/bw_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")

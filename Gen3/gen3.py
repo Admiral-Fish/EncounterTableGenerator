@@ -1,11 +1,11 @@
 from . import emerald, frlg, rs, xd
 
 
-def create_encounters(text: bool):
-    emerald.encounters(text)
+def create_encounters(output_dir: str, text: bool):
+    emerald.encounters(output_dir, text)
 
-    rs.encounters(text)
+    rs.encounters(output_dir, text)
 
-    frlg.encounters(text)
+    frlg.encounters(output_dir, text)
 
-    xd.encounters(text)
+    xd.encounters(output_dir, text)

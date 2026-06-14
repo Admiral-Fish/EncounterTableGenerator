@@ -9,7 +9,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     B_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/b2_encount").get_elements()
     W_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/w2_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/bw2/mapheaders.bin"
@@ -109,10 +109,10 @@ def encounters(text: bool):
         # White 2
         w += pack_encounter_gen5(encounter_id, W_ENCOUNTERS[encounter_id])
 
-    with open("black2.bin", "wb+") as f:
+    with open(f"{output_dir}/black2.bin", "wb+") as f:
         f.write(b)
 
-    with open("white2.bin", "wb+") as f:
+    with open(f"{output_dir}/white2.bin", "wb+") as f:
         f.write(w)
 
     map_names.append((135, "Route 6 (Cave)"))
@@ -121,7 +121,7 @@ def encounters(text: bool):
     map_names.append((138, "Route 3 (Pond)"))
 
     if text:
-        with open("bw2_en.txt", "w+") as f:
+        with open(f"{output_dir}/bw2_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")
@@ -129,7 +129,7 @@ def encounters(text: bool):
                     f.write("\n")
 
 
-def hidden_grotto():
+def hidden_grotto(output_dir: str):
     BW_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/bw2/grotto").get_elements()
     locations = (45, 106, 126, 107, 135, 111, 121, 136, 118, 34, 130, 131, 123, 137, 9, 8, 101, 138, 100, 127)
 
@@ -185,5 +185,5 @@ def hidden_grotto():
         for x in hidden_item:
             bw += x
 
-    with open("bw2_grotto.bin", "wb+") as f:
+    with open(f"{output_dir}/bw2_grotto.bin", "wb+") as f:
         f.write(bw)

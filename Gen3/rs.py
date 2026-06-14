@@ -7,7 +7,7 @@ from .text import clean_string_rse
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     DATA = f"{SCRIPT_FOLDER}/rs/wild_encounters.json"
 
     with open(DATA, "r") as f:
@@ -77,14 +77,14 @@ def encounters(text: bool):
 
         sapphire += pack_encounter_gen3(map_number, encounter)
 
-    with open("ruby.bin", "wb+") as f:
+    with open(f"{output_dir}/ruby.bin", "wb+") as f:
         f.write(ruby)
 
-    with open("sapphire.bin", "wb+") as f:
+    with open(f"{output_dir}/sapphire.bin", "wb+") as f:
         f.write(sapphire)
 
     if text:
-        with open("rs_en.txt", "w+") as f:
+        with open(f"{output_dir}/rs_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")

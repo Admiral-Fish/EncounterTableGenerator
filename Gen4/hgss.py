@@ -10,7 +10,7 @@ from .text import read_map_names
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     HG_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/hgss/hg_encount").get_elements()
     SS_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/hgss/ss_encount").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/hgss/mapheaders.bin"
@@ -64,10 +64,10 @@ def encounters(text: bool):
             # SS
             ss += pack_encounter_hgss(encounter_id, SS_ENCOUNTERS[encounter_id])
 
-    with open("heartgold.bin", "wb+") as f:
+    with open(f"{output_dir}/heartgold.bin", "wb+") as f:
         f.write(hg)
 
-    with open("soulsilver.bin", "wb+") as f:
+    with open(f"{output_dir}/soulsilver.bin", "wb+") as f:
         f.write(ss)
 
     map_names.append((142, "Bug Contest"))
@@ -91,7 +91,7 @@ def encounters(text: bool):
     map_names.append((160, "Safari Zone (Desert)"))
 
     if text:
-        with open("hgss_en.txt", "w+", encoding="utf-8") as f:
+        with open(f"{output_dir}/hgss_en.txt", "w+", encoding="utf-8") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")
@@ -99,7 +99,7 @@ def encounters(text: bool):
                     f.write("\n")
 
 
-def bug():
+def bug(output_dir: str):
     BUG_ENCOUNT = f"{SCRIPT_FOLDER}/hgss/mushi_encount.bin"
 
     with open(BUG_ENCOUNT, "rb") as f:
@@ -107,11 +107,11 @@ def bug():
 
     bug = pack_encounter_hgss_bug(data)
 
-    with open("hgss_bug.bin", "wb") as f:
+    with open(f"{output_dir}/hgss_bug.bin", "wb") as f:
         f.write(bug)
 
 
-def headbutt():
+def headbutt(output_dir: str):
     HG_HEADBUTT_ENCOUNT = [x for x in Narc(f"{SCRIPT_FOLDER}/hgss/hg_headbutt").get_elements() if len(x) != 4]
     SS_HEADBUTT_ENCOUNT = [x for x in Narc(f"{SCRIPT_FOLDER}/hgss/ss_headbutt").get_elements() if len(x) != 4]
 
@@ -139,14 +139,14 @@ def headbutt():
 
         ss_headbutt += pack_encounter_hgss_headbutt(locations[i], encounter)
 
-    with open("hg_headbutt.bin", "wb") as f:
+    with open(f"{output_dir}/hg_headbutt.bin", "wb") as f:
         f.write(hg_headbutt)
 
-    with open("ss_headbutt.bin", "wb") as f:
+    with open(f"{output_dir}/ss_headbutt.bin", "wb") as f:
         f.write(ss_headbutt)
 
 
-def safari():
+def safari(output_dir: str):
     SAFARI_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/hgss/safari").get_elements()
 
     safari = bytes()
@@ -225,5 +225,5 @@ def safari():
         if not water_flag:
             safari += b"\x00" * 624
 
-    with open("hgss_safari.bin", "wb") as f:
+    with open(f"{output_dir}/hgss_safari.bin", "wb") as f:
         f.write(safari)

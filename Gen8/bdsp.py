@@ -8,7 +8,7 @@ from .pack import pack_encounter_bdsp, pack_encounter_honey, pack_encounter_unde
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     D_ENCOUNTERS = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_d.json"
     P_ENCOUNTERS = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_p.json"
     MAP_INFO = f"{SCRIPT_FOLDER}/bdsp/MapInfo.json"
@@ -100,16 +100,16 @@ def encounters(text: bool):
 
         p += pack_encounter_bdsp(map_number, encounter)
 
-    with open("bd.bin", "wb+") as f:
+    with open(f"{output_dir}/bd.bin", "wb+") as f:
         f.write(d)
 
-    with open("sp.bin", "wb+") as f:
+    with open(f"{output_dir}/sp.bin", "wb+") as f:
         f.write(p)
 
     map_names.append((201, "Floaroma Meadow"))
 
     if text:
-        with open("bdsp_en.txt", "w+", encoding="utf-8") as f:
+        with open(f"{output_dir}/bdsp_en.txt", "w+", encoding="utf-8") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")
@@ -117,7 +117,7 @@ def encounters(text: bool):
                     f.write("\n")
 
 
-def honey():
+def honey(output_dir: str):
     D_HONEY_ENCOUNT = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_d.json"
     P_HONEY_ENCOUNT = f"{SCRIPT_FOLDER}/bdsp/FieldEncountTable_p.json"
 
@@ -139,14 +139,14 @@ def honey():
         d += pack_encounter_honey(location, d_honey_encount)
         p += pack_encounter_honey(location, p_honey_encount)
 
-    with open("bd_honey.bin", "wb+") as f:
+    with open(f"{output_dir}/bd_honey.bin", "wb+") as f:
         f.write(d)
 
-    with open("sp_honey.bin", "wb+") as f:
+    with open(f"{output_dir}/sp_honey.bin", "wb+") as f:
         f.write(p)
 
 
-def underground():
+def underground(output_dir: str):
     ENCOUNT = [str(path) for path in Path(f"{SCRIPT_FOLDER}/bdsp/").rglob("UgEncount*")]
     POKEMON_DATA = f"{SCRIPT_FOLDER}/bdsp/UgPokemonData.json"
     RAND_MARK = f"{SCRIPT_FOLDER}/bdsp/UgRandMark.json"
@@ -190,8 +190,8 @@ def underground():
 
         p += pack_encounter_underground(room_id, rand_mark_room, special_pokemon_rates_p, enabled_pokemon_p, pokemon_data)
 
-    with open("bd_underground.bin", "wb+") as f:
+    with open(f"{output_dir}/bd_underground.bin", "wb+") as f:
         f.write(d)
 
-    with open("sp_underground.bin", "wb+") as f:
+    with open(f"{output_dir}/sp_underground.bin", "wb+") as f:
         f.write(p)

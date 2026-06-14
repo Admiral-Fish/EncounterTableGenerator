@@ -34,7 +34,7 @@ class Encounter(Structure):
     ]
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     XD_ENCOUNTERS = f"{SCRIPT_FOLDER}/xd/pokespot.bin"
 
     with open(XD_ENCOUNTERS, "rb") as f:
@@ -54,12 +54,12 @@ def encounters(text: bool):
             xd += slot.max_level.to_bytes(1, "little")
             xd += slot.min_level.to_bytes(1, "little")
 
-    with open("xd.bin", "wb+") as f:
+    with open(f"{output_dir}/xd.bin", "wb+") as f:
         f.write(xd)
 
     if text:
         map_names = [(0, "Rock Poke Spot"), (1, "Oasis Poke Spot"), (2, "Cave Poke Spot")]
-        with open("gales_en.txt", "w+") as f:
+        with open(f"{output_dir}/gales_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")

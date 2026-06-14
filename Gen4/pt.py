@@ -6,7 +6,7 @@ from .pack import pack_encounter_dppt, pack_encounter_dppt_honey
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters():
+def encounters(output_dir: str):
     PT_ENCOUNTERS = Narc(f"{SCRIPT_FOLDER}/pt/pl_enc_data.narc").get_elements()
     MAP_HEADERS = f"{SCRIPT_FOLDER}/pt/mapheaders.bin"
 
@@ -39,11 +39,11 @@ def encounters():
             # Platinum
             pt += pack_encounter_dppt(encounter_id, PT_ENCOUNTERS[encounter_id])
 
-    with open("platinum.bin", "wb+") as f:
+    with open(f"{output_dir}/platinum.bin", "wb+") as f:
         f.write(pt)
 
 
-def honey():
+def honey(output_dir: str):
     HONEY_ENCOUNT = Narc(f"{SCRIPT_FOLDER}/pt/encdata_ex.narc").get_elements()
 
     locations = (
@@ -55,5 +55,5 @@ def honey():
     for location in locations:
         honey += pack_encounter_dppt_honey(location, HONEY_ENCOUNT[2] + HONEY_ENCOUNT[3] + HONEY_ENCOUNT[4])
 
-    with open("pt_honey.bin", "wb") as f:
+    with open(f"{output_dir}/pt_honey.bin", "wb") as f:
         f.write(honey)

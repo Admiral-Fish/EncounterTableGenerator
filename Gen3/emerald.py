@@ -8,7 +8,7 @@ from .text import clean_string_rse
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-def encounters(text: bool):
+def encounters(output_dir: str, text: bool):
     DATA = f"{SCRIPT_FOLDER}/emerald/wild_encounters.json"
 
     with open(DATA, "r") as f:
@@ -62,11 +62,11 @@ def encounters(text: bool):
 
         emerald += pack_encounter_gen3(map_number, encounter)
 
-    with open("emerald.bin", "wb+") as f:
+    with open(f"{output_dir}/emerald.bin", "wb+") as f:
         f.write(emerald)
 
     if text:
-        with open("e_en.txt", "w+") as f:
+        with open(f"{output_dir}/e_en.txt", "w+") as f:
             map_names.sort(key=lambda x: x[0])
             for i, (num, name) in enumerate(map_names):
                 f.write(f"{num},{name}")
