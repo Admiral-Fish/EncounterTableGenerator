@@ -76,3 +76,21 @@ def encounters(output_dir: str, text: bool):
                 f.write(f"{num},{name}")
                 if i != len(map_names) - 1:
                     f.write("\n")
+
+def swarm(output_dir: str):
+    B_SWARM = f"{SCRIPT_FOLDER}/bw/b_swarm"
+    W_SWARM = f"{SCRIPT_FOLDER}/bw/w_swarm"
+
+    b = bytes()
+    w = bytes()
+    with open(B_SWARM, "rb") as f:
+        b = f.read()
+
+    with open(W_SWARM, "rb") as f:
+        w = f.read()
+
+    with open(f"{output_dir}/b_swarm.bin", "wb+") as f:
+        f.write(b)
+
+    with open(f"{output_dir}/w_swarm.bin", "wb+") as f:
+        f.write(w)

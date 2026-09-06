@@ -187,3 +187,21 @@ def hidden_grotto(output_dir: str):
 
     with open(f"{output_dir}/bw2_grotto.bin", "wb+") as f:
         f.write(bw)
+
+def swarm(output_dir: str):
+    B_SWARM = f"{SCRIPT_FOLDER}/bw2/b2_swarm"
+    W_SWARM = f"{SCRIPT_FOLDER}/bw2/w2_swarm"
+
+    b = bytes()
+    w = bytes()
+    with open(B_SWARM, "rb") as f:
+        b = f.read()
+
+    with open(W_SWARM, "rb") as f:
+        w = f.read()
+
+    with open(f"{output_dir}/b2_swarm.bin", "wb+") as f:
+        f.write(b)
+
+    with open(f"{output_dir}/w2_swarm.bin", "wb+") as f:
+        f.write(w)
