@@ -58,10 +58,10 @@ def encounters(output_dir: str, text: bool):
         map_names.append(map_name)
 
         # Black
-        b += pack_encounter_gen5(encounter_id, B_ENCOUNTERS[encounter_id])
+        b += pack_encounter_gen5(encounter_id, True, B_ENCOUNTERS[encounter_id])
 
         # White
-        w += pack_encounter_gen5(encounter_id, W_ENCOUNTERS[encounter_id])
+        w += pack_encounter_gen5(encounter_id, True, W_ENCOUNTERS[encounter_id])
 
     with open(f"{output_dir}/black.bin", "wb+") as f:
         f.write(b)
